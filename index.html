@@ -363,7 +363,7 @@
   <!-- Global TYSON Header (Mobile: Banner Logo Only + Bottom Command Bar) -->
   <header class="main-header">
     <a href="/" class="topbar-brand">
-      <img src="/assets/TYSONMediaGroupBanner.png" alt="TYSON Media Group" class="logo-img">
+      <img src="/assets/TYSONSoftwareBanner.png" alt="TYSON Software" class="logo-img">
     </a>
 
     <nav class="main-nav">
@@ -422,6 +422,7 @@
           <input type="search" id="releaseSearchInput" class="form-input docs-search-input" placeholder="Search release notes, domains, commits, or features...">
           <div class="filter-chips" id="releaseFilterChips">
             <button type="button" class="filter-chip active" data-platform="all">All Platforms</button>
+            <button type="button" class="filter-chip" data-platform="alpha">Alpha Framework (beta.tysonmediagroup.org &bull; 1–150)</button>
             <button type="button" class="filter-chip" data-platform="mytyson">myTYSON &amp; SSO</button>
             <button type="button" class="filter-chip" data-platform="tmg">tysonmediagroup.org</button>
             <button type="button" class="filter-chip" data-platform="poweradmin">PowerAdmin</button>
@@ -476,7 +477,7 @@
                 </ol>
               </li>
               <li><strong>Property-Specific Web Icons &amp; Banners</strong>:
-                <span class="brand-tmg-domain">auth.my.tysonmediagroup.org</span> uses <code>TYSONAuthenticationIcon.jpg</code>; <span class="brand-tmg-domain">my.tysonmediagroup.org</span> uses <code>myTYSONIcon.png</code> and <code>MyTYSONBanner.png</code>; <span class="brand-tmg-domain">power.administration.tysonmediagroup.org</span> uses <code>TYSONPowerAdminBanner.png</code>; and <span class="brand-tmg-domain">tysonmediagroup.org</span> uses <code>tysonmediagroup-icon.png</code> and <code>TYSONMediaGroupBanner.png</code>.
+                <span class="brand-tmg-domain">auth.my.tysonmediagroup.org</span> uses <code>TYSONAuthenticationIcon.jpg</code>; <span class="brand-tmg-domain">my.tysonmediagroup.org</span> uses <code>myTYSONIcon.png</code> and <code>MyTYSONBanner.png</code>; <span class="brand-tmg-domain">docs.tysonmediagroup.org</span> uses <code>TYSONSoftwareBanner.png</code>; <span class="brand-tmg-domain">power.administration.tysonmediagroup.org</span> uses <code>TYSONPowerAdminBanner.png</code>; and <span class="brand-tmg-domain">tysonmediagroup.org</span> uses <code>tysonmediagroup-icon.png</code> and <code>TYSONMediaGroupBanner.png</code>.
               </li>
             </ul>
           </article>
@@ -660,7 +661,7 @@ POST /api/blog           — Publishes a new dispatch (restricted to verified te
         <div class="card-header">
           <div>
             <h3 class="card-title">Publish New TYSON Team Dispatch</h3>
-            <p class="card-subtitle">Posting as <span class="brand-tmg-domain" id="composerAuthorLabel">flame@tysonmediagroup.org</span> &bull; Verified TYSON Staff</p>
+            <p class="card-subtitle">Posting as <span class="brand-tmg-domain" id="composerAuthorLabel">t@tysonmediagroup.org</span> &bull; Verified TYSON Staff</p>
           </div>
           <span class="tyson-white-badge" title="Verified TYSON Staff">
             <img src="/assets/tyson-white-badge.png" alt="TYSON">
@@ -710,7 +711,7 @@ POST /api/blog           — Publishes a new dispatch (restricted to verified te
   </main>
 
   <footer style="text-align: center; padding: 3rem 1.5rem; border-top: 1px solid var(--border-subtle);">
-    <img src="/assets/TYSONMediaGroupBanner.png" alt="TYSON Media Group" class="footer-logo">
+    <img src="/assets/TYSONSoftwareBanner.png" alt="TYSON Software" class="footer-logo">
     <div class="brand-tmg-domain" style="font-size: 1.5rem; color: var(--text-white);">docs.tysonmediagroup.org</div>
     <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 6px;">Ad Astra Per Aspera &bull; Stillness in Motion &bull; Powered by Cloudflare Pages, Workers &amp; D1</div>
   </footer>
@@ -753,42 +754,43 @@ POST /api/blog           — Publishes a new dispatch (restricted to verified te
       var core = window.MyTysonCore;
 
       // =======================================================================
-      // 1. ALL-TIME RELEASE NOTES ARCHIVE (July 2026 — November 2026)
+      // 1. ALL-TIME RELEASE NOTES ARCHIVE (v0.9.1 Alpha — v0.9.9.8 Pre-Release)
+      //    Note: All releases use v0.x numbering prior to the v1.0 Public Release.
       // =======================================================================
       var ALL_TIME_RELEASES = [
         {
-          version: "v4.8.0",
+          version: "v0.9.9.8",
           date: "2026-11-02",
           commit: "a7a9072",
           platform: "mytyson",
           domain: "docs.tysonmediagroup.org",
-          title: "Launch of docs.tysonmediagroup.org, Cloudflare D1 Blog Engine & Full Ecosystem Ledger",
+          title: "Launch of docs.tysonmediagroup.org, TYSONSoftwareBanner Integration & Cloudflare D1 Blog Engine (v0.9.9.8)",
           items: [
-            "Launched docs.tysonmediagroup.org featuring the complete all-time release ledger, interactive framework documentation, official Cloudflare infrastructure endorsement, and the TYSON Team Blog.",
-            "Added mytyson_blog_posts table to Cloudflare D1 (mytyson-db) and /api/blog edge endpoints restricting blog publishing to verified TYSON Team (@tysonmediagroup.org) staff.",
-            "Registered docs.tysonmediagroup.org in auth.my.tysonmediagroup.org APP_BRANDING for seamless one-click Single Sign-On."
+            "Launched docs.tysonmediagroup.org branded with TYSONSoftwareBanner.png featuring the complete all-time release ledger (including the 150-item Alpha Framework archive), architecture guides, Cloudflare infrastructure endorsement, and the TYSON Team Blog.",
+            "Added mytyson_blog_posts table to Cloudflare D1 (mytyson-db) and /api/blog edge endpoints.",
+            "Registered docs.tysonmediagroup.org in auth.my.tysonmediagroup.org APP_BRANDING with TYSONSoftwareBanner.png for seamless one-click Single Sign-On."
           ]
         },
         {
-          version: "v4.7.0",
+          version: "v0.9.9.7",
           date: "2026-11-02",
           commit: "c37c8ae",
           platform: "mytyson",
           domain: "my.tysonmediagroup.org • tysonmediagroup.org",
-          title: "Mobile Bottom Command Bar, Banner-Only Mobile Header & MyTYSONBanner Rollout",
+          title: "Mobile Bottom Command Bar, Banner-Only Mobile Header & MyTYSONBanner Rollout (v0.9.9.7)",
           items: [
             "Engineered the mobile-only bottom Command Bar (#tysonMobileCommandBar) on viewports <= 768px with Sign In / Sign Out, Public Profile, and Gear Settings buttons.",
-            "Simplified mobile top navigation headers across the framework to display each property's centered official Banner Logo (MyTYSONBanner.png, TYSONMediaGroupBanner.png, TYSONPowerAdminBanner.png).",
+            "Simplified mobile top navigation headers across the framework to display each property's centered official Banner Logo (MyTYSONBanner.png, TYSONSoftwareBanner.png, TYSONMediaGroupBanner.png, TYSONPowerAdminBanner.png).",
             "Fixed flex-basis button height scaling in .identity-strip so Save Changes and Open Public Profile buttons render at crisp, compact dimensions across all screen sizes."
           ]
         },
         {
-          version: "v4.6.0",
+          version: "v0.9.9.6",
           date: "2026-11-02",
           commit: "04f616b",
           platform: "tmg",
           domain: "tysonmediagroup.org.myt5s.app • auth.my.tysonmediagroup.org",
-          title: "Custom Property Web Icons, Mobile Viewport Overhaul & tysonmediagroup.org.myt5s.app SSO Integration",
+          title: "Custom Property Web Icons, Mobile Viewport Overhaul & tysonmediagroup.org.myt5s.app SSO Integration (v0.9.9.6)",
           items: [
             "Deployed official custom web icons across all properties: TYSONAuthenticationIcon.jpg on auth.my.tysonmediagroup.org, myTYSONIcon.png on myTYSON & PowerAdmin, and tysonmediagroup-icon.png on tysonmediagroup.org.",
             "Connected tysonmediagroup.org.myt5s.app to myTYSON SSO and synced all public profile routes (/flame, /t, /tyson, /a, /rpm, /contact, /j.gantt, /eythn, /jmay) + dynamic 404.html handler.",
@@ -796,12 +798,12 @@ POST /api/blog           — Publishes a new dispatch (restricted to verified te
           ]
         },
         {
-          version: "v4.5.0",
+          version: "v0.9.9.5",
           date: "2026-11-02",
           commit: "0555c6f",
           platform: "mytyson",
           domain: "my.tysonmediagroup.org • auth.my.tysonmediagroup.org",
-          title: "Cloudflare D1 Global Database Provisioning, Centralized Google OAuth 2.0 & WebCrypto Security",
+          title: "Cloudflare D1 Global Database Provisioning, Centralized Google OAuth 2.0 & WebCrypto Security (v0.9.9.5)",
           items: [
             "Provisioned remote Cloudflare D1 SQLite database (mytyson-db) in WNAM and seeded all 9 default accounts with salted WebCrypto SHA-256 password hashes.",
             "Integrated Google Identity Services on auth.my.tysonmediagroup.org with edge JWT verification (/api/auth/google) and the new-user Handle Picker onboarding step (#googleHandlePickerForm).",
@@ -809,38 +811,38 @@ POST /api/blog           — Publishes a new dispatch (restricted to verified te
           ]
         },
         {
-          version: "v4.2.0",
+          version: "v0.9.9.2",
           date: "2026-10-29",
           commit: "0518da4",
           platform: "poweradmin",
           domain: "power.administration.tysonmediagroup.org",
-          title: "Crimson Obsidian Aero Theme & TYSONPowerAdminBanner Integration",
+          title: "Crimson Obsidian Aero Theme & TYSONPowerAdminBanner Integration (v0.9.9.2)",
           items: [
             "Applied bespoke Crimson Obsidian Aero specular theme to power.administration.tysonmediagroup.org.",
             "Updated brand header, lock gate, and ecosystem tiles to use the official TYSONPowerAdminBanner.png asset."
           ]
         },
         {
-          version: "v4.1.0",
+          version: "v0.9.9.1",
           date: "2026-10-28",
           commit: "27507f6",
           platform: "poweradmin",
           domain: "power.administration.tysonmediagroup.org • my.tysonmediagroup.org",
-          title: "Launch of PowerAdmin Executive Moderation, Dynamic User Creation & Real-Name Privacy Toggle",
+          title: "Launch of PowerAdmin Executive Moderation, Dynamic User Creation & Real-Name Privacy Toggle (v0.9.9.1)",
           items: [
-            "Launched power.administration.tysonmediagroup.org (with p.a.tysonmediagroup.org short redirect) for Clearance Level 1 administrators (Tyler, Stephen, Ash, and TMG org account).",
+            "Launched power.administration.tysonmediagroup.org (with p.a.tysonmediagroup.org short redirect) for Clearance Level 1 administrators.",
             "Added self-service Create Account registration on auth.my.tysonmediagroup.org enforcing the minimum 3-character username policy for non-staff.",
             "Added Show Real Name on Public Profile toggle allowing members to display only their @handle publicly when toggled off.",
             "Added initial community accounts for Eythn Cullia (@eythn) and J May (@jmay) alongside dynamic 404.html profile rendering."
           ]
         },
         {
-          version: "v4.0.0",
+          version: "v0.9.9.0",
           date: "2026-10-26",
           commit: "d66ab4c",
           platform: "mytyson",
           domain: "my.tysonmediagroup.org • auth.my.tysonmediagroup.org",
-          title: "Initial Launch of my.tysonmediagroup.org Dashboard, auth.my.tysonmediagroup.org SSO & Cloudflare Worker API",
+          title: "Initial Launch of my.tysonmediagroup.org Dashboard, auth.my.tysonmediagroup.org SSO & Cloudflare Worker API (v0.9.9.0)",
           items: [
             "Launched the unified myTYSON Identity Dashboard (my.tysonmediagroup.org) with live Facebook-style Obsidian Gloss cover/avatar preview, client-side canvas image optimization, and 8-chunk cross-subdomain cookie sync.",
             "Launched centralized Single Sign-On portal (auth.my.tysonmediagroup.org) with dynamic app-aware branding.",
@@ -848,46 +850,46 @@ POST /api/blog           — Publishes a new dispatch (restricted to verified te
           ]
         },
         {
-          version: "v3.9.0",
+          version: "v0.9.8.5",
           date: "2026-10-26",
           commit: "e7cdf01",
           platform: "atlantis",
           domain: "flame.atlantis.tysonmediagroup.org",
-          title: "Launch of flame.atlantis.tysonmediagroup.org with myTYSON SSO & Geometry Dash Catalog",
+          title: "Launch of flame.atlantis.tysonmediagroup.org with myTYSON SSO & Geometry Dash Catalog (v0.9.8.5)",
           items: [
             "Launched flame.atlantis.tysonmediagroup.org integrated with myTYSON Single Sign-On, responsive lock screen scaling, and interactive catalog."
           ]
         },
         {
-          version: "v3.8.0",
+          version: "v0.9.8.0",
           date: "2026-10-26",
           commit: "e570883",
           platform: "tmg",
           domain: "tysonmediagroup.org.myt5s.app",
-          title: "Updated TYSONMediaGroupBanner.png Chrome & Specular Branding Across Main Portal",
+          title: "Updated TYSONMediaGroupBanner.png Chrome & Specular Branding Across Main Portal (v0.9.8.0)",
           items: [
             "Updated primary brand banner across tysonmediagroup.org.myt5s.app and public profile routes to the new tightly cropped TYSONMediaGroupBanner.png."
           ]
         },
         {
-          version: "v3.7.0",
+          version: "v0.9.7.5",
           date: "2026-10-20",
           commit: "afdf385",
           platform: "t6",
           domain: "t6graph.tysonmediagroup.org",
-          title: "PROJECT T6 SONAR Frequency Oscilloscope & 5-Year Real Telemetry Engine",
+          title: "PROJECT T6 SONAR Frequency Oscilloscope & 5-Year Real Telemetry Engine (v0.9.7.5)",
           items: [
             "Launched t6graph.tysonmediagroup.org featuring a pure monochrome noir time-series SONAR graph wired to 262 real 5-Year (5Y) data points.",
             "Upgraded to the full tysonmediagroup.org framework with SVG vector trace intro, multi-theme Settings modal, and .assetsignore optimization for Cloudflare Workers."
           ]
         },
         {
-          version: "v3.6.0",
+          version: "v0.9.7.0",
           date: "2026-10-16",
           commit: "d4e5d07",
           platform: "tmg",
           domain: "tysonmediagroup.org • rpm.tysonmediagroup.org • atlantis",
-          title: "Black Frutiger Aero (noir-aero) Default Theme & PROJECT T6 Ecosystem Centerpiece",
+          title: "Black Frutiger Aero (noir-aero) Default Theme & PROJECT T6 Ecosystem Centerpiece (v0.9.7.0)",
           items: [
             "Integrated Black Frutiger Aero (noir-aero) 50/50 specular obsidian glass as the default visual theme across tysonmediagroup.org, rpm.tysonmediagroup.org, Atlantis Player, tr.tysonmediagroup.org, and t6graph.",
             "Added official PROJECT T6 logo to the intro trace sequence and global footer centerpiece.",
@@ -895,104 +897,269 @@ POST /api/blog           — Publishes a new dispatch (restricted to verified te
           ]
         },
         {
-          version: "v3.4.0",
+          version: "v0.9.6.5",
           date: "2026-10-06",
           commit: "4528bcc",
           platform: "legacy",
           domain: "100.tysonmediagroup.org",
-          title: "100 Subscribers Milestone Celebration Portal & Sequential Vector Trace Finale",
+          title: "100 Subscribers Milestone Celebration Portal & Sequential Vector Trace Finale (v0.9.6.5)",
           items: [
             "Launched 100.tysonmediagroup.org commemorating 100 YouTube subscribers with Borg 9 & Cormorant Garamond sequential pen tracing, stage-click replay, and Brothertiger - Tide Pool (3:30-4:30) synchronized audio."
           ]
         },
         {
-          version: "v3.3.0",
+          version: "v0.9.6.0",
           date: "2026-10-02",
           commit: "15b2ea8",
           platform: "tmg",
           domain: "tysonmediagroup.org.myt5s.app",
-          title: "Core Web Vitals, Accessibility & Mobile Interaction Polish Suite (16-Commit Sprint)",
+          title: "Core Web Vitals, Accessibility & Mobile Interaction Polish Suite — 16-Commit Sprint (v0.9.6.0)",
           items: [
             "Eliminated 300ms mobile tap delay with touch-action: manipulation, prevented iOS auto-zoom on search inputs, and fixed video grid columns on tablets and phones.",
             "Added DNS prefetch for YouTube CDN, lazy loading for below-fold thumbnails, automatic hqdefault thumbnail fallback, Open Graph / Twitter Card metadata, and ARIA roles on modals."
           ]
         },
         {
-          version: "v3.2.0",
+          version: "v0.9.5.8",
           date: "2026-09-28",
           commit: "9d29677",
           platform: "t6",
           domain: "rpm.tysonmediagroup.org",
-          title: "Launch of RPM World Portal (@tysonrpm)",
+          title: "Launch of RPM World Portal (@tysonrpm) (v0.9.5.8)",
           items: [
             "Launched rpm.tysonmediagroup.org dedicated to RPM World broadcasts and synchronized with YouTube channel @tysonrpm (UCy5fCFuoaipvqa3hPFHaZkg)."
           ]
         },
         {
-          version: "v3.1.0",
+          version: "v0.9.5.5",
           date: "2026-09-21",
           commit: "9405a70",
           platform: "legacy",
           domain: "3d.tysonmediagroup.org • ash.games.t5s.tysonmediagroup.org",
-          title: "Launch of TYSON 3D Engine & Ash T5S Canvas Game Server (TYSON_Server1)",
+          title: "Launch of TYSON 3D Engine & T5S Canvas Game Server (TYSON_Server1) (v0.9.5.5)",
           items: [
             "Deployed 3d.tysonmediagroup.org and ash-games-t5s-tysonmediagroup-org on Cloudflare Pages with custom Wrangler asset pipelines."
           ]
         },
         {
-          version: "v3.0.0",
+          version: "v0.9.5.0",
           date: "2026-09-14",
           commit: "c7b2855",
           platform: "atlantis",
           domain: "atlantis.player.tysonmediagroup.org.myt5s.app",
-          title: "Launch of Standalone TYSON Atlantis Pro Web Workstation Player",
+          title: "Launch of Standalone TYSON Atlantis Pro Web Workstation Player (v0.9.5.0)",
           items: [
             "Built standalone TYSON Atlantis Player App featuring a pro workstation layout (sidebar + dual deck rack + audio catalog), pure SVG iconography, and 24MB Cloudflare Pages audio asset optimization."
           ]
         },
         {
-          version: "v2.5.0",
-          date: "2026-09-09",
-          commit: "dca06f8",
-          platform: "legacy",
-          domain: "tr.tysonmediagroup.org • 323.tysonracing.tysonmediagroup.org.myt5s.app",
-          title: "Launch of TYSON Racing Portal & 44-Node Corporate Network Directory",
-          items: [
-            "Launched tr.tysonmediagroup.org and 323.tysonracing.tysonmediagroup.org.myt5s.app with 1-to-1 hero SVG domain trace and video redirect.",
-            "Expanded the Corporate Network Directory in the global footer to 44 official endpoints."
-          ]
-        },
-        {
-          version: "v2.0.0",
+          version: "v0.9.4-alpha",
           date: "2026-08-27",
           commit: "534f0a5",
-          platform: "tmg",
-          domain: "tysonmediagroup.org.myt5s.app",
-          title: "Initial Release of tysonmediagroup.org.myt5s.app Broadcast & Evaluation Platform",
+          platform: "alpha",
+          domain: "beta.tysonmediagroup.org • tysonmediagroup.org.myt5s.app",
+          title: "Original Alpha Framework — Part 6: Email Templates, myt5s.app Platform Migration & Production Polish (Items 126–150)",
           items: [
-            "Launched the full tysonmediagroup.org.myt5s.app Single-Page Application featuring the Cormorant Garamond SVG vector trace hero, 79-video YouTube broadcast library, interactive search/category filtering, and dark-mode HTML beta invitation templates."
+            "126. HTML Beta Invitation Email Template: Designed and coded the responsive HTML beta invite email template (Add HTML beta invitation email template).",
+            "127. Gmail Auto-Blue Links Fix: Overrode Gmail's automatic blue link styling on plain text dates, phone numbers, and URLs (Fix Gmail auto-blue links and dark mode inversion in email template).",
+            "128. Dark Mode Inversion Patch: Added email CSS meta tags (supported-color-schemes: dark light) to prevent forced color inversion in mobile dark mode (...and dark mode inversion in email template).",
+            "129. Pure Black Email Background: Set email template outer containers and body backgrounds to solid #000000 (Update email template to pure black background).",
+            "130. T5S Brand Logo Enlargement: Scaled up the primary T5S brand logo for enhanced visibility in the portal header (...enlarge T5S logo, and link to myt5s.app).",
+            "131. myt5s.app Redirect Linking: Updated primary logo click targets and home buttons to route directly to myt5s.app.",
+            "132. Mobile Video Embed Modal Fix: Resolved video player modal scaling bugs on small mobile screens (Fix video embed modal scaling on mobile and desktop).",
+            "133. Desktop Video Embed Scaling Fix: Adjusted max-width container constraints for widescreen desktop viewports.",
+            "134. Repository Hero Banner Header: Added official TYSON Media Group hero banner to repo documentation (docs: add TYSON Media Group hero banner and web platform badges).",
+            "135. Web Platform Badges: Added live deployment, platform status, and framework version badges to main README docs.",
+            "136. Email Table-Based Boilerplate: Used nested HTML table structures in email templates to ensure 100% compatibility in Outlook, Apple Mail, and Gmail.",
+            "137. Email Preheader Text Hack: Included hidden preheader text spans to control inbox message preview text.",
+            "138. Bulletproof Call-To-Action Button: Coded VML/CSS button components in email templates for reliable button rendering without broken images.",
+            "139. Retina Display Email Assets: Embedded high-DPI @2x crisp PNG logo graphics in email headers.",
+            "140. CAN-SPAM Email Footer: Added physical corporate address and mandatory unsubscribe links to transactional templates.",
+            "141. Template Merge Tag System: Integrated dynamic mail merge tags ({{FIRST_NAME}}, {{BETA_KEY}}) for automated email sending script integration.",
+            "142. UTM Link Tracking Standard: Appended standard tracking parameters (utm_source=beta_email) to all outbound email CTA buttons.",
+            "143. Explicit Email Image Dimensions: Specified explicit HTML width and height attributes on all email images to prevent layout breakage during image loading.",
+            "144. Framework Production Migration: Successfully migrated repository and framework hosting from legacy structure to tysonmediagroup.org.myt5s.app.",
+            "145. Initial Beta Release Tagging (v0.9.4-alpha): Tagged and published initial beta release (Initial beta release).",
+            "146. Debounced Window Resize Handler: Wrapped global window resize listeners in debounce utilities to eliminate layout lag.",
+            "147. Asset Compression Pass: Converted standard PNG graphics to lightweight .webp formats across the site.",
+            "148. Passive Touch Event Listeners: Added { passive: true } to touch event handlers to improve mobile scrolling performance.",
+            "149. HTML Validation Audit: Cleaned up unclosed tags, duplicate IDs, and nested element errors across all production template files.",
+            "150. Final Framework Release & Documentation: Published complete documentation, release notes, and deployment summaries for the unified tysonmediagroup.org framework platform."
           ]
         },
         {
-          version: "v1.5.0",
-          date: "2026-08-13",
-          commit: "5515b2e",
-          platform: "legacy",
-          domain: "tyson-auto • tyson-web-app",
-          title: "Early Automotive Editorial Frontend & Monochrome Noir Prototyping",
+          version: "v0.9.3",
+          date: "2026-08-27",
+          commit: "dca06f8",
+          platform: "alpha",
+          domain: "beta.tysonmediagroup.org • tr.tysonmediagroup.org",
+          title: "Original Alpha Framework — Part 5: Corporate Network Directory & Service Endpoints (Items 101–125)",
           items: [
-            "Built early tyson-auto editorial frontend with searchable automotive evaluations, pure black monochrome theme, and header/footer TYSON Media Group banner integration."
+            "101. Corporate Network Directory Architecture: Built the initial directory component for managing company endpoints.",
+            "102. Directory Dataset Expansion (44 Endpoints): Expanded the Corporate Network Directory to index 44 total active endpoints (Add TYSON Racing endpoints to Corporate Network Directory (44 total)...).",
+            "103. TYSON Racing Endpoint Dataset: Added dedicated directory records and schemas for TYSON Racing operations.",
+            "104. TYSON Aviation Endpoint Dataset: Integrated corporate aviation assets and status tracking endpoints into the directory structure.",
+            "105. Aviation Delayed Operational Status: Updated the status field for Aviation endpoints to accurately reflect \"Delayed\" states (Update Aviation delayed status...).",
+            "106. Video Publication Date Adjustments: Updated publication date records across all media directory endpoints (...and update video publish dates).",
+            "107. Dynamic Service Status Badges: Added color-coded status pills (Active, Delayed, Offline) to directory entity cards.",
+            "108. Endpoint Category Filters: Built filter tabs (All, Racing, Aviation, Media, Corporate) to isolate specific network divisions.",
+            "109. Real-Time Directory Search: Implemented instant client-side keyword filtering across endpoint titles and URLs.",
+            "110. Endpoint Hash Deep-Linking: Supported direct section hash navigation to individual corporate endpoint cards.",
+            "111. Pulsating Status Indicator: Designed pulsating green/yellow CSS indicator dots for real-time service visibility.",
+            "112. Endpoint Latency Metrics: Added latency badges (e.g. 28ms) on corporate service cards.",
+            "113. Copy Endpoint URL Action: Added a one-click copy icon to copy API endpoint URLs directly to clipboard.",
+            "114. Directory Grid / List View Toggle: Added controls allowing users to switch between card grid and compact table list views.",
+            "115. Endpoint Details Modal: Built a popup modal displaying host location, server protocol, and uptime history for endpoints.",
+            "116. Alphabetical Endpoint Sorting: Added sorting helpers to alphabetize corporate directory listings automatically.",
+            "117. Status Summary Bar: Created a header bar showing total active vs delayed network service counts.",
+            "118. Directory Empty Search State: Designed a clean empty state card when directory search queries yield zero results.",
+            "119. Network Service Health Polling: Built a lightweight polling loop to verify endpoint availability periodically.",
+            "120. Memory Leak Fix in Status Polling: Fixed an issue where background status check timers persisted after navigating away.",
+            "121. JSON Endpoint Export Tool: Added a button enabling users to export the directory catalog as a formatted .json file.",
+            "122. Corporate Announcement Feed: Integrated an internal announcement ticker inside the network directory pane.",
+            "123. Endpoint Maintenance Banner: Created an alert banner notifying users of upcoming scheduled maintenance.",
+            "124. Card Image Lazy Loading: Applied native lazy-loading to all corporate entity logos within the directory grid.",
+            "125. Fuzzy Search Matching: Improved search lookup handling to account for minor spelling variations in endpoint queries."
           ]
         },
         {
-          version: "v1.0.0",
-          date: "2026-07-09",
-          commit: "20e2e61",
-          platform: "legacy",
-          domain: "tysonmediagroup.org • tyson-cli",
-          title: "Genesis: tysonmediagroup.org Coming Soon Vector Trace & TYSON CLI",
+          version: "v0.9.2.2 – v0.9.2.8",
+          date: "2026-06-28",
+          commit: "0928000",
+          platform: "alpha",
+          domain: "beta.tysonmediagroup.org",
+          title: "Original Alpha Framework — Part 4: Lightbox Modals, Media Player & Version Progression (Items 76–100)",
           items: [
-            "First production commits for tysonmediagroup.org (SVG glow/zoom intro animation and splash video) and initial July 2026 release of tyson-cli."
+            "76. Video Embed Lightbox Modal: Built a custom media lightbox modal for watching embedded video content.",
+            "77. Lightbox Overlay Height Adjustments: Fine-tuned backdrop height calculations to prevent vertical scrollbar clipping (Updated lightbox overlay height...).",
+            "78. Video Thumbnail Parser: Improved video thumbnail scraping logic for YouTube and custom media streams (Adjusted thumbnail retrieval logic for articles and videos).",
+            "79. Color Scheme & Interface Polish: Overhauled site-wide color variables and technical terminology for interface consistency (Updated color scheme and terminology for improved interface consistency).",
+            "80. 16:9 Aspect Ratio Container: Enforced strict aspect-ratio: 16 / 9 rules on video player containers to eliminate layout jump.",
+            "81. Video Play Button Overlay: Created a floating play icon hover effect on media thumbnail cards.",
+            "82. Auto-Pause Background Media: Configured the player script to automatically pause playing media when opening a modal.",
+            "83. Escape Key Modal Exit: Bound the Escape key event listener to close active video lightboxes instantly.",
+            "84. Background Scroll Locking: Added overflow: hidden to document.body whenever a lightbox overlay is visible.",
+            "85. Custom Player Border Styling: Styled media modal windows with rounded corners (border-radius: 12px) and glowing dark shadows.",
+            "86. Video Title Header: Rendered active video title and channel attribution directly inside the lightbox top bar.",
+            "87. Close Button Touch Target: Enlarged modal close buttons (×) to 44x44px for reliable mobile tap interaction.",
+            "88. Video Duration Overlay: Added duration badge tags (e.g. 05:32) over thumbnail image corners.",
+            "89. Responsive Video Embed Scaling: Optimized video modal iframe widths for scaling across mobile and desktop displays.",
+            "90. Iframe Lazy Loading: Applied loading=\"lazy\" to embedded video frames to save bandwidth on page load.",
+            "91. Video Quality Fallback: Configured player embed parameters to default to high-definition playback modes.",
+            "92. Media Card Hover Zoom: Added a subtle scale effect (transform: scale(1.03)) to media thumbnails on mouse hover.",
+            "93. Profile README Maintenance: Cleaned up personal profile statements and updated header graphics in repo README (fixed readme from when it was on profile).",
+            "94. README Logo Cleanup: Swapped out outdated header graphics and removed dead image tags (Update logo in README and clean up image tags).",
+            "95. Version Release (v0.9.2.2): Tagged framework release (Update! (June 27, 2026) | 0.9.2.2).",
+            "96. Version Release (v0.9.2.3): Deployed modal player bug fixes (Update! (June 27, 2026) | 0.9.2.3).",
+            "97. Version Release (v0.9.2.4): Tagged minor release updates (Update 0.9.2.4).",
+            "98. Version Release (v0.9.2.5): Released lightbox and thumbnail logic refactoring (Update! (June 27, 2026) | 0.9.2.5).",
+            "99. Version Release (v0.9.2.6): Released interface consistency and color updates (Update! (June 27, 2026) | 0.9.2.6).",
+            "100. Version Release (v0.9.2.8): Finalized legacy framework version updates (Update! (June 28, 2026) | 0.9.2.8)."
+          ]
+        },
+        {
+          version: "v0.9.2.1",
+          date: "2026-06-27",
+          commit: "0921000",
+          platform: "alpha",
+          domain: "beta.tysonmediagroup.org",
+          title: "Original Alpha Framework — Part 3: Content Modules, Roster Bios & Article Publishing Engine (Items 51–75)",
+          items: [
+            "51. Team Roster HTML Markup: Created the initial team roster grid section within index.html.",
+            "52. Roster Member Profile Cards: Designed profile card components displaying member avatars, roles, and bio summaries.",
+            "53. Roster Bio Updates: Updated team member descriptions and executive roles across the roster list (Update roster bios and roles in index.html).",
+            "54. Channel Name Updates: Standardized official channel naming conventions and social handle links (Updated roster bios and channel names for clarity and accuracy).",
+            "55. Porsche 911 (964) Article Addition: Integrated published media content into the article feed (ARTICLE - Porsche 911 (964)).",
+            "56. Subaru Manual Models Article Addition: Published automotive feature article (ARTICLE - Subaru Confirms Three New Manual Models).",
+            "57. Article Feed Card Design: Designed media cards featuring article cover images, headlines, snippets, and publish dates.",
+            "58. Article Reader Modal: Built an inline reader modal for viewing full article text without leaving the primary page.",
+            "59. Article Image Lightbox: Added full-screen image expansion popups when clicking images inside article feeds.",
+            "60. Thumbnail Retrieval Logic Refactor: Rewrote thumbnail URL extraction logic to handle missing or external images (Adjusted thumbnail retrieval logic for articles and videos).",
+            "61. Legacy Article View Cleanup: Removed deprecated article rendering elements and redundant markup (...and removed article view elements).",
+            "62. Automotive Category Filter: Added category tags (Automotive, Reviews, News) to article cards.",
+            "63. Article Read Time Estimator: Implemented a JS helper calculating reading time based on word count (e.g. 3 min read).",
+            "64. Author Byline Component: Added formatted author bylines and publication timestamps to article headers.",
+            "65. Social Share Triggers for Articles: Added quick-copy share links for individual article entries.",
+            "66. Article Grid Responsive Columns: Configured 1-column mobile, 2-column tablet, and 3-column desktop article grids.",
+            "67. Excerpt Truncation Utility: Added a JS string helper to cleanly truncate long article descriptions at 120 characters.",
+            "68. Related Articles Section: Created a footer block inside the reader modal displaying related content suggestions.",
+            "69. Article Heading Styles: Standardized H1, H2, and H3 font sizes, line heights, and margins within article body text.",
+            "70. Blockquote Styling: Designed custom blockquote containers with left accent borders for article pull-quotes.",
+            "71. Article List Pagination: Added pagination controls for navigating past published article archives.",
+            "72. Empty Feed Indicator: Designed a fallback message card when an article category returns no results.",
+            "73. Copy Link Notification: Added a toast pop-up confirming \"Article link copied to clipboard\".",
+            "74. Article Image Loading States: Added subtle fade-in transitions once article cover thumbnails finish loading.",
+            "75. Incremental Version Release (v0.9.2.1): Tagged and deployed content system updates (Update! (June 27, 2026) | 0.9.2.1)."
+          ]
+        },
+        {
+          version: "v0.9.2",
+          date: "2026-06-26",
+          commit: "0920000",
+          platform: "alpha",
+          domain: "beta.tysonmediagroup.org",
+          title: "Original Alpha Framework — Part 2: Beta Gate Overlay, Early Authentication & Login Logic (Items 26–50)",
+          items: [
+            "26. Beta Gate Overlay Prototype: Implemented an early modal overlay designed to restrict public access during initial framework testing.",
+            "27. Beta Gate Style Refactor: Updated overlay background opacity, key entry input field styles, and typography.",
+            "28. Beta Gate Overlay Removal: Completely stripped out legacy beta gate overlay DOM elements and associated CSS (Refactor beta gate overlay and update styles).",
+            "29. Client-Side Auth Experiments: Built early client-side passphrase comparison logic for restricted portal areas.",
+            "30. Simple Hash Authentication Prototype: Implemented basic JS hashing functions to evaluate access keys before routing.",
+            "31. Auth Form UI Feedback: Added error text labels for incorrect passphrase attempts on access forms.",
+            "32. Local Session Key Storage: Saved validated access tokens in localStorage to preserve login state across page refreshes.",
+            "33. Auth Code Cleanup: Removed obsolete test functions and raw string comparisons from the client script (this is probably the worst login encryption to ever exist).",
+            "34. Login Form Styling: Created centered card layouts with dark input fields for member access prompts.",
+            "35. Passphrase Input Masking: Formatted access key inputs with type=\"password\" and toggleable reveal buttons.",
+            "36. Auto-Redirect on Validation: Added automatic page scroll/redirect upon successful key entry.",
+            "37. Logout Trigger Handler: Implemented a session clear function to remove local auth tokens on button click.",
+            "38. Access Denied Modal: Built a lightweight popup modal for unauthorized access attempts.",
+            "39. Console Security Warning: Added a browser console notice advising against client-side key inspection.",
+            "40. Form Submit Event Interception: Prevented default form submission page reloads using e.preventDefault().",
+            "41. Input Auto-Focus Logic: Set automatic cursor focus to the access key input upon overlay initialization.",
+            "42. Keyboard Shortcut Binding: Bound Enter key execution directly to authentication form submit buttons.",
+            "43. Auth State CSS Toggling: Used CSS classes (.is-authenticated, .is-locked) to show or hide protected page regions.",
+            "44. Test Commit Cleanup: Removed experimental authentication debugging logs (pls work / yay / did this change anything).",
+            "45. Member Roster Security Check: Verified user permissions before rendering restricted team contact details.",
+            "46. Session Expiry Timer: Implemented a client-side timer to invalidate local auth tokens after idle periods.",
+            "47. Encrypted Payload Parser: Created a lightweight JSON parser for decoding encrypted portal payload strings.",
+            "48. Auth Error Toast Notification: Styled temporary pop-down alert bars for authentication timeouts.",
+            "49. Route Guard Function Wrapper: Wrapped protected JavaScript module initializers in access verification guards.",
+            "50. Authentication Baseline Release (v0.9.2): Tagged and finalized the initial login/access iteration (index update 0.9.2)."
+          ]
+        },
+        {
+          version: "v0.9.1",
+          date: "2026-06-25",
+          commit: "0910000",
+          platform: "alpha",
+          domain: "beta.tysonmediagroup.org",
+          title: "Original Alpha Framework — Part 1: Initial Framework Base, HTML Layouts & UI Foundation (Items 1–25)",
+          items: [
+            "1. Initial index.html Structure Setup: Created the foundational single-page HTML layout containing header, main content, and footer sections.",
+            "2. Navigation Bar Layout: Designed the top navigation bar with corporate branding links and section jumps.",
+            "3. Search Component Integration: Built the primary search bar wrapper in index.html for filtering site content.",
+            "4. CSS Class Namespace Standardization: Refactored ad-hoc CSS classes into structured, reusable layout utility classes.",
+            "5. Navigation Styling Refactor: Updated navigation bar link padding, hover transitions, and active state indicators (yet another index update).",
+            "6. Search Bar Input Styling: Enhanced search field input borders, placeholder text styling, and focus outline effects.",
+            "7. footerlogo.png Asset Renaming: Standardized image assets by renaming raw files (Untitled (8).png -> footerlogo.png) in the asset directory.",
+            "8. Uppercase Typography Transformation: Applied CSS text-transform: uppercase across titles, category headers, and navigation tags for visual consistency.",
+            "9. Footer Layout Structure: Added the main footer container featuring corporate copyright, media links, and footerlogo.png.",
+            "10. Responsive Grid Layout: Introduced flexbox and CSS grid rules to keep main content aligned on various screen widths.",
+            "11. CSS Variable Design Tokens: Declared root CSS variables for core dark background colors, border tones, and text shades.",
+            "12. Header Element Cleanup: Removed redundant inline style attributes from global header containers.",
+            "13. Favicon Reference Addition: Linked primary favicon graphics in the <head> section of index.html.",
+            "14. Font Import Standardization: Imported clean sans-serif web fonts to replace default browser typography.",
+            "15. Content Container Max-Width: Set max-width constraints on main content wrappers to prevent layout stretching on ultra-wide displays.",
+            "16. Section Spacing Standardization: Unified vertical section margins and element padding across all page blocks.",
+            "17. Anchor Smooth Scrolling: Added scroll-behavior: smooth to enable seamless transitions when clicking internal navigation links.",
+            "18. Mobile Viewport Tag Tuning: Standardized <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">.",
+            "19. Button Base Styling: Created unified CSS classes for interactive site buttons (.btn, .btn-primary).",
+            "20. Link Hover Transitions: Added CSS transition: color 0.2s ease to inline text and header links.",
+            "21. Card Container Elevation: Added subtle border outlines (1px solid #222) to content cards for section separation.",
+            "22. Image Asset Directory Organization: Grouped static graphics and brand logos under /assets/img/.",
+            "23. HTML Accessibility Audit: Added alt text tags to primary image elements across index.html.",
+            "24. Clean Code Indentation: Standardized 2-space HTML and CSS code formatting across early template files.",
+            "25. Baseline Release Tagging (v0.9.1): Tagged and committed the first structured framework release (index update 0.9.1)."
           ]
         }
       ];
@@ -1122,38 +1289,38 @@ POST /api/blog           — Publishes a new dispatch (restricted to verified te
       var FALLBACK_BLOG_POSTS = [
         {
           id: "dispatch-2026-11-02-d1-sso",
-          title: "Architecting Global Zero-Trust Identity on Cloudflare D1 & Edge Workers",
+          title: "Architecting Global Zero-Trust Identity on Cloudflare D1 & Edge Workers (v0.9.9.8)",
           category: "Cloudflare & Edge Infrastructure",
           summary: "How we unified myTYSON Single Sign-On, Google OAuth 2.0, and cross-domain profile state across tysonmediagroup.org using Cloudflare D1 SQLite at the edge.",
-          content: "With the November 2026 infrastructure milestone, every TYSON Media Group property — from tysonmediagroup.org and my.tysonmediagroup.org to auth.my.tysonmediagroup.org, power.administration.tysonmediagroup.org, and flame.atlantis.tysonmediagroup.org — now runs on a unified Cloudflare D1 edge database paired with WebCrypto HMAC-SHA256 session tokens.\n\nWhy Cloudflare D1? Traditional centralized databases introduce cold-start latency and regional bottlenecks. By pairing Cloudflare Pages Functions and Workers with D1 (backed by automatic Edge Cache fallback), profile updates, custom avatars, and account registrations propagate globally in milliseconds with zero origin servers to maintain.\n\nWe also introduced strict Staff vs. Community handle separation: only verified TYSON Team accounts receive @tysonmediagroup.org corporate handles, while community members receive clean @username slugs with instant Google OAuth 2.0 onboarding.",
+          content: "With our v0.9.9.8 pre-release infrastructure milestone, every TYSON Media Group property — from tysonmediagroup.org and my.tysonmediagroup.org to auth.my.tysonmediagroup.org, power.administration.tysonmediagroup.org, and flame.atlantis.tysonmediagroup.org — now runs on a unified Cloudflare D1 edge database paired with WebCrypto HMAC-SHA256 session tokens.\n\nWhy Cloudflare D1? Traditional centralized databases introduce cold-start latency and regional bottlenecks. By pairing Cloudflare Pages Functions and Workers with D1 (backed by automatic Edge Cache fallback), profile updates, custom avatars, and account registrations propagate globally in milliseconds with zero origin servers to maintain.\n\nWe also introduced strict Staff vs. Community handle separation: only verified TYSON Team accounts receive @tysonmediagroup.org corporate handles, while community members receive clean @username slugs with instant Google OAuth 2.0 onboarding.",
           authorSlug: "t",
           authorName: "Tyler Custine",
           authorHandle: "t@tysonmediagroup.org",
-          authorRole: "Founder & Executive Director",
+          authorRole: "Founder, Lead Developer & Executive Director",
           createdAt: 1793646000000
         },
         {
           id: "dispatch-2026-11-02-mobile-command-bar",
-          title: "Designing the Mobile Command Bar & Black Frutiger Aero Design System",
+          title: "Designing the Mobile Command Bar & Black Frutiger Aero Design System (v0.9.9.7)",
           category: "Design Systems & UI",
           summary: "Introducing the mobile-only bottom Command Bar, banner-only top headers, and the 5-theme Specular Glass Engine across the tysonmediagroup.org framework.",
-          content: "Mobile navigation on content-heavy media and identity platforms often suffers from cramped top headers. Today we rolled out a dedicated mobile interface across the tysonmediagroup.org framework.\n\nOn viewports 768px and below, the top navigation bar distills down to the property's official Banner Logo (MyTYSONBanner, TYSONMediaGroupBanner, or TYSONPowerAdminBanner), while interactive controls move to the bottom Mobile Command Bar: one-tap Sign In / Sign Out, Public Profile navigation, and the Theme & Appearance Gear button.\n\nEvery surface adheres to our Black Frutiger Aero (noir-aero) 50/50 specular glass split, with instant live switching across Noir Midnight, Frutiger Aero Aqua, Nintendo Wii System Channels, and Nature Botanical themes.",
-          authorSlug: "flame",
-          authorName: "Stephen French",
-          authorHandle: "flame@tysonmediagroup.org",
-          authorRole: "Director • TYSON Atlantis & T5S",
+          content: "Mobile navigation on content-heavy media and identity platforms often suffers from cramped top headers. In v0.9.9.7 we rolled out a dedicated mobile interface across the tysonmediagroup.org framework.\n\nOn viewports 768px and below, the top navigation bar distills down to the property's official Banner Logo (MyTYSONBanner, TYSONSoftwareBanner, TYSONMediaGroupBanner, or TYSONPowerAdminBanner), while interactive controls move to the bottom Mobile Command Bar: one-tap Sign In / Sign Out, Public Profile navigation, and the Theme & Appearance Gear button.\n\nEvery surface adheres to our Black Frutiger Aero (noir-aero) 50/50 specular glass split, with instant live switching across Noir Midnight, Frutiger Aero Aqua, Nintendo Wii System Channels, and Nature Botanical themes.",
+          authorSlug: "t",
+          authorName: "Tyler Custine",
+          authorHandle: "t@tysonmediagroup.org",
+          authorRole: "Founder, Lead Developer & Executive Director",
           createdAt: 1793642400000
         },
         {
           id: "dispatch-2026-10-16-project-t6",
-          title: "PROJECT T6 & The Evolution of Stillness in Motion",
+          title: "PROJECT T6 & The Evolution of Stillness in Motion (v0.9.7.0)",
           category: "Broadcast & Automotive Film",
           summary: "Behind the Cormorant Garamond SVG vector trace engine, t6graph SONAR telemetry, and 79+ official automotive film releases.",
-          content: "Stillness in Motion is more than a tagline — it is the engineering standard behind every frame we shoot and every web application we ship. With the rollout of PROJECT T6 across tysonmediagroup.org, rpm.tysonmediagroup.org, and t6graph.tysonmediagroup.org, we unified our stroke-by-stroke Cormorant Garamond italic vector trace intro with real-time telemetry and zero-dependency performance.",
-          authorSlug: "a",
-          authorName: "Ash French",
-          authorHandle: "a@tysonmediagroup.org",
-          authorRole: "TYSON Team • 3D & Interactive Systems",
+          content: "Stillness in Motion is more than a tagline — it is the engineering standard behind every frame we shoot and every web application we ship. With the rollout of PROJECT T6 (v0.9.7.0) across tysonmediagroup.org, rpm.tysonmediagroup.org, and t6graph.tysonmediagroup.org, we unified our stroke-by-stroke Cormorant Garamond italic vector trace intro with real-time telemetry and zero-dependency performance.",
+          authorSlug: "t",
+          authorName: "Tyler Custine",
+          authorHandle: "t@tysonmediagroup.org",
+          authorRole: "Founder, Lead Developer & Executive Director",
           createdAt: 1792177200000
         }
       ];
@@ -1194,7 +1361,9 @@ POST /api/blog           — Publishes a new dispatch (restricted to verified te
 
       function getMergedBlogPosts(remoteList) {
         var map = {};
-        FALLBACK_BLOG_POSTS.forEach(function (p) { map[p.id] = p; });
+        if (Array.isArray(remoteList)) {
+          remoteList.forEach(function (p) { if (p && p.id) map[p.id] = p; });
+        }
         try {
           var localRaw = localStorage.getItem(LOCAL_BLOG_KEY);
           if (localRaw) {
@@ -1204,9 +1373,7 @@ POST /api/blog           — Publishes a new dispatch (restricted to verified te
             }
           }
         } catch (e) {}
-        if (Array.isArray(remoteList)) {
-          remoteList.forEach(function (p) { if (p && p.id) map[p.id] = p; });
-        }
+        FALLBACK_BLOG_POSTS.forEach(function (p) { map[p.id] = p; });
         return Object.keys(map).map(function (k) { return map[k]; }).sort(function (a, b) {
           return (b.createdAt || 0) - (a.createdAt || 0);
         });
