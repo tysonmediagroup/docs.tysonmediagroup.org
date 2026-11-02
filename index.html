@@ -661,11 +661,9 @@ POST /api/blog           — Publishes a new dispatch (restricted to verified te
         <div class="card-header">
           <div>
             <h3 class="card-title">Publish New TYSON Team Dispatch</h3>
-            <p class="card-subtitle">Posting as <span class="brand-tmg-domain" id="composerAuthorLabel">t@tysonmediagroup.org</span> &bull; Verified TYSON Staff</p>
+            <p class="card-subtitle">Posting as <span class="brand-tmg-domain" id="composerAuthorLabel">t@tysonmediagroup.org</span> &bull; <span id="composerRoleLabel">Owner</span></p>
           </div>
-          <span class="tyson-white-badge" title="Verified TYSON Staff">
-            <img src="/assets/tyson-white-badge.png" alt="TYSON">
-          </span>
+          <img src="/assets/tyler-pfp.jpg" alt="Tyler Custine" id="composerAuthorAvatar" data-author-avatar="t" style="width: 44px; height: 44px; border-radius: 50%; object-fit: cover; border: 1.5px solid rgba(255, 255, 255, 0.4); box-shadow: 0 4px 14px rgba(0, 0, 0, 0.7);">
         </div>
 
         <form id="blogPublishForm" autocomplete="off">
@@ -1296,7 +1294,7 @@ POST /api/blog           — Publishes a new dispatch (restricted to verified te
           authorSlug: "t",
           authorName: "Tyler Custine",
           authorHandle: "t@tysonmediagroup.org",
-          authorRole: "Founder, Lead Developer & Executive Director",
+          authorRole: "Owner",
           createdAt: 1793646000000
         },
         {
@@ -1308,7 +1306,7 @@ POST /api/blog           — Publishes a new dispatch (restricted to verified te
           authorSlug: "t",
           authorName: "Tyler Custine",
           authorHandle: "t@tysonmediagroup.org",
-          authorRole: "Founder, Lead Developer & Executive Director",
+          authorRole: "Owner",
           createdAt: 1793642400000
         },
         {
@@ -1320,7 +1318,7 @@ POST /api/blog           — Publishes a new dispatch (restricted to verified te
           authorSlug: "t",
           authorName: "Tyler Custine",
           authorHandle: "t@tysonmediagroup.org",
-          authorRole: "Founder, Lead Developer & Executive Director",
+          authorRole: "Owner",
           createdAt: 1792177200000
         }
       ];
@@ -1379,19 +1377,44 @@ POST /api/blog           — Publishes a new dispatch (restricted to verified te
         });
       }
 
+      function getAuthorAvatarUrl(slug) {
+        var clean = String(slug || "t").toLowerCase().replace(/@tysonmediagroup\.org$/i, "").trim();
+        try {
+          if (core && core.getCustomProfile) {
+            var prof = core.getCustomProfile(clean);
+            if (prof && prof.pfpUrl) return prof.pfpUrl;
+          }
+          if (core && core.findAccount) {
+            var acc = core.findAccount(clean);
+            if (acc && acc.pfpUrl) return acc.pfpUrl;
+          }
+        } catch (e) {}
+        if (clean === "t") return "/assets/tyler-pfp.jpg";
+        return "/assets/myTYSONIcon.png";
+      }
+
+      function getAuthorDisplayRole(post) {
+        var slug = String((post && post.authorSlug) || "t").toLowerCase().replace(/@tysonmediagroup\.org$/i, "").trim();
+        if (slug === "t") return "Owner";
+        return (post && post.authorRole) || "TYSON Team";
+      }
+
       function renderBlogFeed(posts) {
         var feed = document.getElementById("blogFeedContainer");
         if (!feed) return;
         var list = getMergedBlogPosts(posts);
 
         feed.innerHTML = list.map(function (p) {
+          var slug = (p.authorSlug || "t").toLowerCase();
+          var avatarSrc = getAuthorAvatarUrl(slug);
+          var roleText = getAuthorDisplayRole(p);
           var canDelete = activeStaffAccount && (core.isPowerAdmin(activeStaffAccount) || activeStaffAccount.slug === p.authorSlug);
           return (
             '<article class="card">' +
               '<div class="release-meta-row">' +
                 '<div class="release-badges">' +
                   '<span class="status-badge badge-team">' + escapeHtml(p.category || "Engineering & Architecture") + '</span>' +
-                  '<span class="brand-tmg-domain" style="font-size: 1.05rem; color: var(--text-white);">' + escapeHtml(p.authorHandle || (p.authorSlug + "@tysonmediagroup.org")) + '</span>' +
+                  '<span class="brand-tmg-domain" style="font-size: 1.05rem; color: var(--text-white);">' + escapeHtml(p.authorHandle || (slug + "@tysonmediagroup.org")) + '</span>' +
                 '</div>' +
                 '<span class="release-date">' + formatBlogDate(p.createdAt) + '</span>' +
               '</div>' +
@@ -1399,13 +1422,13 @@ POST /api/blog           — Publishes a new dispatch (restricted to verified te
               (p.summary ? '<p style="font-size: 1.05rem; color: var(--text-white); opacity: 0.92; font-style: italic; margin-bottom: 10px;">' + escapeHtml(p.summary) + '</p>' : '') +
               '<div class="blog-article-body">' + escapeHtml(p.content) + '</div>' +
               '<div class="blog-author-strip">' +
-                '<div style="display: flex; align-items: center; gap: 10px;">' +
-                  '<span class="tyson-white-badge" style="height: 28px; padding: 4px 10px;" title="Verified TYSON Staff">' +
-                    '<img src="/assets/tyson-white-badge.png" alt="TYSON" style="height: 15px !important;">' +
-                  '</span>' +
+                '<div style="display: flex; align-items: center; gap: 12px;">' +
+                  '<a href="https://tysonmediagroup.org/' + encodeURIComponent(slug) + '" style="display: inline-flex; flex-shrink: 0;">' +
+                    '<img src="' + escapeHtml(avatarSrc) + '" alt="' + escapeHtml(p.authorName || "Tyler Custine") + '" data-author-avatar="' + escapeHtml(slug) + '" style="width: 42px; height: 42px; border-radius: 50%; object-fit: cover; border: 1.5px solid rgba(255, 255, 255, 0.38); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.65);">' +
+                  '</a>' +
                   '<div>' +
-                    '<div style="font-weight: 600; color: var(--text-white); font-size: 0.95rem;">' + escapeHtml(p.authorName) + '</div>' +
-                    '<div style="font-size: 0.8rem; color: var(--text-muted);">' + escapeHtml(p.authorRole || "TYSON Team") + ' &bull; <a href="https://tysonmediagroup.org/' + encodeURIComponent(p.authorSlug || "t") + '" class="brand-tmg-domain" style="color: var(--text-white);">tysonmediagroup.org/' + escapeHtml(p.authorSlug || "t") + '</a></div>' +
+                    '<div style="font-weight: 600; color: var(--text-white); font-size: 0.98rem;">' + escapeHtml(p.authorName) + '</div>' +
+                    '<div style="font-size: 0.82rem; color: var(--text-muted);">' + escapeHtml(roleText) + ' &bull; <a href="https://tysonmediagroup.org/' + encodeURIComponent(slug) + '" class="brand-tmg-domain" style="color: var(--text-white);">tysonmediagroup.org/' + escapeHtml(slug) + '</a></div>' +
                   '</div>' +
                 '</div>' +
                 (canDelete ? '<button type="button" class="btn" data-delete-post="' + escapeHtml(p.id) + '" style="padding: 6px 14px; font-size: 0.85rem; border-color: rgba(239,68,68,0.5); color: #fca5a5;">Delete Dispatch</button>' : '') +
@@ -1455,12 +1478,26 @@ POST /api/blog           — Publishes a new dispatch (restricted to verified te
           });
       }
 
+      function refreshAuthorAvatarsFromCloud(slug) {
+        if (!core || !core.fetchCloudProfile) return;
+        core.fetchCloudProfile(slug || "t", function (cloudProf) {
+          if (cloudProf && cloudProf.pfpUrl) {
+            var imgs = document.querySelectorAll('[data-author-avatar="' + (slug || "t") + '"]');
+            for (var i = 0; i < imgs.length; i++) {
+              imgs[i].src = cloudProf.pfpUrl;
+            }
+          }
+        });
+      }
+
       function initAuthAndBlogComposer() {
         var topAuthBtn = document.getElementById("topAuthBtn");
         var topProfBtn = document.getElementById("topPublicProfileBtn");
         var composerCard = document.getElementById("blogStaffComposerCard");
         var statusPill = document.getElementById("blogStaffStatusPill");
         var authorLabel = document.getElementById("composerAuthorLabel");
+        var roleLabel = document.getElementById("composerRoleLabel");
+        var composerAvatar = document.getElementById("composerAuthorAvatar");
 
         var session = core.getSession();
         if (session && session.slug) {
@@ -1484,6 +1521,11 @@ POST /api/blog           — Publishes a new dispatch (restricted to verified te
             activeStaffAccount = acc;
             if (composerCard) composerCard.style.display = "block";
             if (authorLabel) authorLabel.textContent = acc.slug + "@tysonmediagroup.org";
+            if (roleLabel) roleLabel.textContent = (acc.slug === "t") ? "Owner" : (acc.role || "Verified TYSON Staff");
+            if (composerAvatar) {
+              composerAvatar.setAttribute("data-author-avatar", acc.slug);
+              composerAvatar.src = getAuthorAvatarUrl(acc.slug);
+            }
             if (statusPill) {
               statusPill.innerHTML = '<span class="status-badge badge-team">Staff Composer Unlocked (' + escapeHtml(acc.slug) + '@tysonmediagroup.org)</span>';
             }
@@ -1505,6 +1547,7 @@ POST /api/blog           — Publishes a new dispatch (restricted to verified te
 
         renderBlogFeed([]);
         loadCloudBlogPosts();
+        refreshAuthorAvatarsFromCloud("t");
       }
 
       var blogForm = document.getElementById("blogPublishForm");
@@ -1528,7 +1571,7 @@ POST /api/blog           — Publishes a new dispatch (restricted to verified te
             authorSlug: activeStaffAccount.slug,
             authorName: activeStaffAccount.name || activeStaffAccount.slug,
             authorHandle: activeStaffAccount.slug + "@tysonmediagroup.org",
-            authorRole: activeStaffAccount.role || "TYSON Team",
+            authorRole: (activeStaffAccount.slug === "t") ? "Owner" : (activeStaffAccount.role || "TYSON Team"),
             createdAt: Date.now()
           };
 
