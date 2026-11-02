@@ -1,0 +1,1418 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="noir-aero">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TYSON Documentation, Release Notes &amp; Dispatches | docs.tysonmediagroup.org</title>
+  <meta name="description" content="Official documentation, all-time release notes ledger, architecture guides, Cloudflare infrastructure endorsement, and TYSON Team blog for tysonmediagroup.org.">
+  <link rel="icon" type="image/png" href="/assets/tysonmediagroup-icon.png">
+  <link rel="apple-touch-icon" href="/assets/tysonmediagroup-icon.png">
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    .docs-subnav-wrap {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 18px 2rem 0;
+    }
+
+    .docs-subnav {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      padding-bottom: 6px;
+    }
+
+    .docs-subnav::-webkit-scrollbar {
+      display: none;
+    }
+
+    .docs-tab-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0.65rem 1.35rem;
+      border-radius: var(--btn-radius);
+      font-family: var(--font-heading);
+      font-size: 1.18rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      box-shadow: var(--box-shadow-card);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: var(--trans-fast);
+    }
+
+    .docs-tab-btn:hover {
+      color: var(--text-white);
+      border-color: var(--border-hover);
+    }
+
+    .docs-tab-btn.active {
+      background: linear-gradient(180deg, #ffffff 0%, #e5e7eb 49%, #d1d5db 50%, #f3f4f6 100%);
+      color: #000000 !important;
+      border-color: #ffffff;
+      box-shadow: 0 10px 26px rgba(255, 255, 255, 0.22), inset 0 1px 0 #ffffff;
+      font-weight: 700;
+    }
+
+    .docs-container {
+      max-width: 1280px;
+      width: 100%;
+      margin: 24px auto 80px;
+      padding: 0 2rem;
+    }
+
+    .docs-view {
+      display: none;
+      animation: docsFadeIn 0.25s ease-out;
+    }
+
+    .docs-view.active {
+      display: block;
+    }
+
+    @keyframes docsFadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Filter & Search Bar */
+    .docs-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+
+    .docs-search-input {
+      flex: 1 1 280px;
+      max-width: 440px;
+    }
+
+    .filter-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .filter-chip {
+      padding: 7px 14px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      cursor: pointer;
+      transition: var(--trans-fast);
+      white-space: nowrap;
+    }
+
+    .filter-chip:hover,
+    .filter-chip.active {
+      color: var(--text-white);
+      border-color: var(--accent-color);
+      background: var(--bg-surface-hover);
+      box-shadow: 0 0 14px rgba(255, 255, 255, 0.14);
+    }
+
+    /* Release Notes Timeline */
+    .release-timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .release-card {
+      position: relative;
+      border-left: 3px solid var(--accent-color);
+    }
+
+    .release-meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .release-badges {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .release-version-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-family: monospace;
+      font-size: 0.78rem;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-white);
+    }
+
+    .release-commit-hash {
+      font-family: monospace;
+      font-size: 0.76rem;
+      color: var(--text-dim);
+      padding: 2px 8px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .release-date {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .release-title {
+      font-family: var(--font-heading);
+      font-size: 1.65rem;
+      font-weight: 500;
+      color: var(--text-white);
+      margin-bottom: 8px;
+      line-height: 1.25;
+    }
+
+    .release-list {
+      margin: 10px 0 0 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      color: var(--text-body);
+      font-size: 0.96rem;
+    }
+
+    /* Guides Grid */
+    .guides-layout {
+      display: grid;
+      grid-template-columns: 290px 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .guides-toc {
+      position: sticky;
+      top: 104px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .toc-link {
+      display: block;
+      padding: 10px 14px;
+      border-radius: 12px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 500;
+      border: 1px solid transparent;
+      transition: var(--trans-fast);
+    }
+
+    .toc-link:hover,
+    .toc-link.active {
+      color: var(--text-white);
+      background: var(--bg-surface);
+      border-color: var(--border-subtle);
+    }
+
+    .code-snippet {
+      background: rgba(0, 0, 0, 0.65);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 14px 16px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.84rem;
+      color: #e5e7eb;
+      overflow-x: auto;
+      margin: 12px 0;
+      line-height: 1.55;
+    }
+
+    /* Cloudflare Endorsement Showcase */
+    .cf-hero-card {
+      background:
+        radial-gradient(circle at 85% 15%, rgba(246, 130, 31, 0.22) 0%, rgba(246, 130, 31, 0.04) 45%, transparent 70%),
+        var(--bg-card);
+      border: 1.5px solid rgba(246, 130, 31, 0.48);
+      box-shadow: 0 18px 48px rgba(0, 0, 0, 0.9), 0 0 32px rgba(246, 130, 31, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+    }
+
+    .cf-badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: rgba(246, 130, 31, 0.16);
+      border: 1px solid rgba(246, 130, 31, 0.55);
+      color: #fdba74;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .cf-stats-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin: 24px 0;
+    }
+
+    .cf-stat-box {
+      padding: 18px 20px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .cf-stat-val {
+      font-family: var(--font-heading);
+      font-size: 2.5rem;
+      font-weight: 600;
+      color: #fb923c;
+      line-height: 1.05;
+    }
+
+    .cf-stat-label {
+      font-size: 0.84rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .cf-stack-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    /* Blog & Dispatches */
+    .blog-article-body {
+      white-space: pre-line;
+      font-size: 1.02rem;
+      line-height: 1.75;
+      color: var(--text-body);
+      margin-top: 14px;
+    }
+
+    .blog-author-strip {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 18px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    @media (max-width: 900px) {
+      .guides-layout {
+        grid-template-columns: 1fr;
+      }
+      .guides-toc {
+        position: static;
+        flex-direction: row;
+        overflow-x: auto;
+        padding-bottom: 6px;
+      }
+      .toc-link {
+        white-space: nowrap;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .docs-subnav-wrap,
+      .docs-container {
+        padding-left: 0.85rem;
+        padding-right: 0.85rem;
+      }
+      .docs-tab-btn {
+        padding: 0.52rem 0.95rem;
+        font-size: 1rem;
+      }
+      .release-title {
+        font-size: 1.35rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Global TYSON Header (Mobile: Banner Logo Only + Bottom Command Bar) -->
+  <header class="main-header">
+    <a href="/" class="topbar-brand">
+      <img src="/assets/TYSONMediaGroupBanner.png" alt="TYSON Media Group" class="logo-img">
+    </a>
+
+    <nav class="main-nav">
+      <a href="#releases" class="nav-link active" data-docs-nav="releases">Release Notes</a>
+      <a href="#guides" class="nav-link" data-docs-nav="guides">Guides &amp; Docs</a>
+      <a href="#cloudflare" class="nav-link" data-docs-nav="cloudflare">Cloudflare</a>
+      <a href="#blog" class="nav-link" data-docs-nav="blog">Team Blog</a>
+    </nav>
+
+    <div class="topbar-actions">
+      <a href="https://auth.my.tysonmediagroup.org?app=docs" id="topAuthBtn" class="btn btn-primary">Sign In</a>
+      <a href="https://my.tysonmediagroup.org" id="topPublicProfileBtn" class="btn" target="_blank" rel="noopener">Public Profile</a>
+      <button class="settings-toggle-btn" id="settings-toggle-btn" title="Theme &amp; Appearance Settings" aria-label="Settings">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3"></circle>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+        </svg>
+        <span>Settings</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Centerpiece Domain Stage -->
+  <section class="tmg-editorial-stage">
+    <span class="editorial-tag">Ad Astra Per Aspera &bull; Knowledge, Ledger &amp; Engineering Dispatches</span>
+    <h1 class="domain-centerpiece-title brand-tmg-domain">docs.tysonmediagroup.org</h1>
+    <p class="domain-centerpiece-sub">Stillness in Motion &bull; All-Time Release Notes, Framework Documentation, Cloudflare Infrastructure &amp; Team Blog</p>
+  </section>
+
+  <!-- Touch-Friendly Section Switcher -->
+  <div class="docs-subnav-wrap">
+    <div class="docs-subnav" role="tablist" aria-label="Documentation Sections">
+      <button type="button" class="docs-tab-btn active" data-docs-tab="releases">All-Time Release Notes (32)</button>
+      <button type="button" class="docs-tab-btn" data-docs-tab="guides">Guides &amp; Architecture Docs</button>
+      <button type="button" class="docs-tab-btn" data-docs-tab="cloudflare">Cloudflare Endorsement</button>
+      <button type="button" class="docs-tab-btn" data-docs-tab="blog">TYSON Team Blog</button>
+    </div>
+  </div>
+
+  <main class="docs-container">
+
+    <!-- =====================================================================
+         VIEW 1: ALL-TIME RELEASE NOTES LEDGER (#releases)
+         ===================================================================== -->
+    <section class="docs-view active" id="view-releases">
+      <div class="card" style="margin-bottom: 22px;">
+        <div class="card-header" style="margin-bottom: 14px;">
+          <div>
+            <h2 class="card-title">Complete Historical Release Ledger</h2>
+            <p class="card-subtitle">Every production deployment, architectural milestone, and commit across the <span class="brand-tmg-domain">tysonmediagroup.org</span> ecosystem from inception to present</p>
+          </div>
+          <span class="status-badge badge-official" id="releaseCountBadge">32 Releases</span>
+        </div>
+
+        <div class="docs-toolbar" style="margin-bottom: 0;">
+          <input type="search" id="releaseSearchInput" class="form-input docs-search-input" placeholder="Search release notes, domains, commits, or features...">
+          <div class="filter-chips" id="releaseFilterChips">
+            <button type="button" class="filter-chip active" data-platform="all">All Platforms</button>
+            <button type="button" class="filter-chip" data-platform="mytyson">myTYSON &amp; SSO</button>
+            <button type="button" class="filter-chip" data-platform="tmg">tysonmediagroup.org</button>
+            <button type="button" class="filter-chip" data-platform="poweradmin">PowerAdmin</button>
+            <button type="button" class="filter-chip" data-platform="atlantis">TYSON Atlantis</button>
+            <button type="button" class="filter-chip" data-platform="t6">PROJECT T6 &amp; RPM</button>
+            <button type="button" class="filter-chip" data-platform="legacy">3D, Racing &amp; Origins</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="release-timeline" id="releaseTimelineContainer"></div>
+    </section>
+
+    <!-- =====================================================================
+         VIEW 2: ARCHITECTURE GUIDES & DOCUMENTATION (#guides)
+         ===================================================================== -->
+    <section class="docs-view" id="view-guides">
+      <div class="guides-layout">
+        <aside class="card guides-toc">
+          <div style="font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); font-weight: 700; padding: 4px 10px;">
+            Documentation Index
+          </div>
+          <a href="#doc-framework" class="toc-link active">1. The tysonmediagroup.org Framework</a>
+          <a href="#doc-identity" class="toc-link">2. myTYSON Identity &amp; Google SSO</a>
+          <a href="#doc-handles" class="toc-link">3. Staff vs. Community Handle Rules</a>
+          <a href="#doc-d1-edge" class="toc-link">4. Cloudflare D1 &amp; Edge API</a>
+          <a href="#doc-mobile" class="toc-link">5. Mobile Command Bar &amp; Responsive UI</a>
+          <a href="#doc-poweradmin" class="toc-link">6. PowerAdmin &amp; Network Topology</a>
+        </aside>
+
+        <div>
+          <!-- Guide 1 -->
+          <article class="card" id="doc-framework">
+            <div class="card-header">
+              <div>
+                <span class="editorial-tag" style="font-size: 0.8rem;">Core Specification &bull; Section 01</span>
+                <h2 class="card-title">1. The <span class="brand-tmg-domain">tysonmediagroup.org</span> Visual &amp; Architectural Framework</h2>
+              </div>
+            </div>
+            <p style="margin-bottom: 12px;">
+              Every web property operated by TYSON Media Group is built on a unified, zero-bloat HTML5/CSS3/Edge-JS architecture engineered for instant rendering, tactile skeuomorphic depth, and cross-domain visual harmony.
+            </p>
+            <ul class="release-list">
+              <li><strong>Universal Domain Typography Rule</strong>: Every domain name, corporate handle, and route (<span class="brand-tmg-domain">tysonmediagroup.org</span>, <span class="brand-tmg-domain">my.tysonmediagroup.org</span>, <span class="brand-tmg-domain">auth.my.tysonmediagroup.org</span>, <span class="brand-tmg-domain">flame@tysonmediagroup.org</span>) is strictly rendered in <strong>Cormorant Garamond Italic</strong> via the <code>.brand-tmg-domain</code> class.</li>
+              <li><strong>5-Theme Specular Engine</strong>: Every node supports real-time switching (persisted across all subdomains via shared <code>.tysonmediagroup.org</code> cookies and <code>localStorage</code>) between:
+                <ol style="margin: 6px 0 6px 20px;">
+                  <li><strong>Black Frutiger Aero (<code>noir-aero</code> — Default)</strong>: Obsidian glass with a 50/50 specular horizon split and chrome borders.</li>
+                  <li><strong>Noir Midnight (<code>noir</code>)</strong>: Pure architectural monochrome flat black.</li>
+                  <li><strong>Frutiger Aero Aqua (<code>frutiger</code>)</strong>: Deep sapphire machined aqua glass.</li>
+                  <li><strong>Nintendo Wii System Channels (<code>wii</code>)</strong>: Authentic Wii channel grid with rounded typography and automatic dark-inverted brand banners.</li>
+                  <li><strong>Nature Botanical (<code>nature</code>)</strong>: Deep moss evergreen glass.</li>
+                </ol>
+              </li>
+              <li><strong>Property-Specific Web Icons &amp; Banners</strong>:
+                <span class="brand-tmg-domain">auth.my.tysonmediagroup.org</span> uses <code>TYSONAuthenticationIcon.jpg</code>; <span class="brand-tmg-domain">my.tysonmediagroup.org</span> uses <code>myTYSONIcon.png</code> and <code>MyTYSONBanner.png</code>; <span class="brand-tmg-domain">power.administration.tysonmediagroup.org</span> uses <code>TYSONPowerAdminBanner.png</code>; and <span class="brand-tmg-domain">tysonmediagroup.org</span> uses <code>tysonmediagroup-icon.png</code> and <code>TYSONMediaGroupBanner.png</code>.
+              </li>
+            </ul>
+          </article>
+
+          <!-- Guide 2 -->
+          <article class="card" id="doc-identity">
+            <div class="card-header">
+              <div>
+                <span class="editorial-tag" style="font-size: 0.8rem;">Authentication &bull; Section 02</span>
+                <h2 class="card-title">2. Unified myTYSON Single Sign-On &amp; Centralized Google OAuth 2.0</h2>
+              </div>
+            </div>
+            <p style="margin-bottom: 12px;">
+              Authentication across all TYSON Media Group properties is centralized through <span class="brand-tmg-domain">auth.my.tysonmediagroup.org</span> so that credentials and OAuth origins never need to be duplicated across satellite domains.
+            </p>
+            <div class="code-snippet">// Redirecting any TYSON property to Centralized SSO:
+https://auth.my.tysonmediagroup.org/?app=tmg&amp;redirect=https://tysonmediagroup.org.myt5s.app/
+
+// Returning to the requesting app with an HMAC-SHA256 signed session payload:
+https://tysonmediagroup.org.myt5s.app/?mytyson_sso=&lt;base64_signed_session_token&gt;</div>
+            <ul class="release-list">
+              <li><strong>Google Identity Services (GIS) Flow</strong>: Users can sign in or register with one click via Google on <span class="brand-tmg-domain">auth.my.tysonmediagroup.org</span>. The Cloudflare Edge API verifies the Google ID token directly with Google's tokeninfo endpoint.</li>
+              <li><strong>New Google User Handle Picker (<code>NEEDS_HANDLE</code>)</strong>: When a first-time Google user authenticates, the SSO portal presents the Handle Picker step so they can choose their custom 3+ character <code>myTYSON</code> username and configure their "Show Real Name Publicly" preference before issuing their session.</li>
+            </ul>
+          </article>
+
+          <!-- Guide 3 -->
+          <article class="card" id="doc-handles">
+            <div class="card-header">
+              <div>
+                <span class="editorial-tag" style="font-size: 0.8rem;">Identity Policy &bull; Section 03</span>
+                <h2 class="card-title">3. Strict Staff vs. Community Handle Architecture</h2>
+              </div>
+            </div>
+            <p style="margin-bottom: 12px;">
+              To protect organizational authenticity, the <code>myTYSON</code> identity engine enforces a strict separation between verified TYSON Team staff and community/external accounts:
+            </p>
+            <ul class="release-list">
+              <li><strong>Verified TYSON Staff (<code>team === "Y"</code>)</strong>:
+                Receive official <span class="brand-tmg-domain">&lt;slug&gt;@tysonmediagroup.org</span> corporate handles (including <span class="brand-tmg-domain">t@tysonmediagroup.org</span>, <span class="brand-tmg-domain">flame@tysonmediagroup.org</span>, <span class="brand-tmg-domain">a@tysonmediagroup.org</span>, <span class="brand-tmg-domain">rpm@tysonmediagroup.org</span>, <span class="brand-tmg-domain">tyson@tysonmediagroup.org</span>, and <span class="brand-tmg-domain">contact@tysonmediagroup.org</span>), display the verified white TYSON emblem badge, and are permitted to use 1-to-2 character executive slugs.</li>
+              <li><strong>Community &amp; Standard Members (<code>team === "N"</code>)</strong>:
+                Receive clean username slugs (minimum 3 characters, e.g. <code>@j.gantt</code>, <code>@eythn</code>, <code>@jmay</code>) with public profiles at <span class="brand-tmg-domain">tysonmediagroup.org/&lt;username&gt;</span>. They are never assigned an <code>@tysonmediagroup.org</code> address.</li>
+            </ul>
+          </article>
+
+          <!-- Guide 4 -->
+          <article class="card" id="doc-d1-edge">
+            <div class="card-header">
+              <div>
+                <span class="editorial-tag" style="font-size: 0.8rem;">Edge Storage &bull; Section 04</span>
+                <h2 class="card-title">4. Cloudflare D1 Database &amp; Edge API Reference</h2>
+              </div>
+            </div>
+            <p style="margin-bottom: 12px;">
+              All accounts, profile customizations (avatars, covers, bios, real-name visibility), and team blog dispatches are stored in our Cloudflare D1 database (<code>mytyson-db</code>) and served by <code>mytyson-edge-api.js</code>:
+            </p>
+            <div class="code-snippet">POST /api/auth/login     — Verifies salted SHA-256 password hash &amp; issues HMAC-SHA256 session
+POST /api/auth/register  — Enforces &gt;=3 char non-staff handle rule &amp; persists to Cloudflare D1
+POST /api/auth/google    — Verifies Google JWT at the edge (signin | complete | link | unlink)
+GET  /api/accounts       — Returns sanitized public directory (strips passwordHashes &amp; googleSub)
+POST /api/profile        — Saves PFP, cover banner, bio, and showRealName to mytyson_profiles
+GET  /api/blog           — Returns chronological TYSON Team dispatches from mytyson_blog_posts
+POST /api/blog           — Publishes a new dispatch (restricted to verified team === 'Y' staff)</div>
+          </article>
+
+          <!-- Guide 5 -->
+          <article class="card" id="doc-mobile">
+            <div class="card-header">
+              <div>
+                <span class="editorial-tag" style="font-size: 0.8rem;">Mobile UX &bull; Section 05</span>
+                <h2 class="card-title">5. Mobile Top Banner &amp; Bottom Command Bar Architecture</h2>
+              </div>
+            </div>
+            <p style="margin-bottom: 12px;">
+              On mobile viewports (<code>&lt;= 768px</code>), the framework transforms into an ergonomic dual-bar interface:
+            </p>
+            <ul class="release-list">
+              <li><strong>Top Navbar on Mobile</strong>: Collapses secondary navigation links and action buttons so the top bar displays only the property's centered Banner Logo.</li>
+              <li><strong>Bottom Mobile Command Bar (<code>.tyson-command-bar</code>)</strong>: Fixed to the bottom of the screen with iOS safe-area padding, providing immediate thumb access to:
+                <strong>1. Sign In / Sign Out</strong>, <strong>2. Public Profile</strong>, and <strong>3. Gear Settings (Theme Drawer)</strong>.
+              </li>
+            </ul>
+          </article>
+
+          <!-- Guide 6 -->
+          <article class="card" id="doc-poweradmin">
+            <div class="card-header">
+              <div>
+                <span class="editorial-tag" style="font-size: 0.8rem;">Administration &bull; Section 06</span>
+                <h2 class="card-title">6. Executive Moderation (<span class="brand-tmg-domain">power.administration.tysonmediagroup.org</span>)</h2>
+              </div>
+            </div>
+            <p>
+              Restricted to Clearance Level 1 administrators (<span class="brand-tmg-domain">t@tysonmediagroup.org</span>, <span class="brand-tmg-domain">flame@tysonmediagroup.org</span>, <span class="brand-tmg-domain">tyson@tysonmediagroup.org</span>, and <span class="brand-tmg-domain">a@tysonmediagroup.org</span>). Styled in Crimson Obsidian Aero, PowerAdmin provides zero-captcha on-the-fly account creation, password resets, badge assignment, and live Cloudflare D1 directory inspection.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         VIEW 3: OFFICIAL CLOUDFLARE ENDORSEMENT (#cloudflare)
+         ===================================================================== -->
+    <section class="docs-view" id="view-cloudflare">
+      <div class="card cf-hero-card">
+        <div class="cf-badge-pill">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/>
+          </svg>
+          <span>Official Infrastructure Endorsement</span>
+        </div>
+        <h2 class="card-title" style="font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 12px;">
+          Why TYSON Media Group Runs 100% on Cloudflare
+        </h2>
+        <p style="font-size: 1.12rem; color: var(--text-body); max-width: 920px; line-height: 1.75;">
+          From broadcasting 79+ high-bitrate automotive films and powering real-time SONAR telemetry on <span class="brand-tmg-domain">t6graph.tysonmediagroup.org</span> to executing sub-millisecond Single Sign-On and SQLite queries on <span class="brand-tmg-domain">my.tysonmediagroup.org</span>, <strong>Cloudflare</strong> is the backbone of every property we build. We endorse Cloudflare as the definitive edge cloud platform for modern media and software engineering.
+        </p>
+
+        <div class="cf-stats-row">
+          <div class="cf-stat-box">
+            <div class="cf-stat-val">330+</div>
+            <div class="cf-stat-label">Global Edge Cities Serving TYSON Nodes</div>
+          </div>
+          <div class="cf-stat-box">
+            <div class="cf-stat-val">0 ms</div>
+            <div class="cf-stat-label">Worker Cold-Start Overhead via V8 Isolates</div>
+          </div>
+          <div class="cf-stat-box">
+            <div class="cf-stat-val">D1 SQL</div>
+            <div class="cf-stat-label">Serverless Edge Database (mytyson-db)</div>
+          </div>
+          <div class="cf-stat-box">
+            <div class="cf-stat-val">100%</div>
+            <div class="cf-stat-label">Git-Driven Cloudflare Pages Deployments</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cf-stack-grid">
+        <div class="card">
+          <h3 class="card-title" style="margin-bottom: 8px;">1. Cloudflare D1 Serverless SQL</h3>
+          <p style="color: var(--text-body); font-size: 0.98rem;">
+            Our identity ledger (<code>mytyson_accounts</code>), custom profile store (<code>mytyson_profiles</code>), and team blog (<code>mytyson_blog_posts</code>) run natively on <strong>Cloudflare D1</strong> in Western North America (<code>WNAM</code>) with automatic Edge Cache read-through. Zero database servers to patch, zero connection-pool exhaustion, and instant global reads.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3 class="card-title" style="margin-bottom: 8px;">2. Cloudflare Workers &amp; Pages Functions</h3>
+          <p style="color: var(--text-body); font-size: 0.98rem;">
+            Every API request across <span class="brand-tmg-domain">my.tysonmediagroup.org</span>, <span class="brand-tmg-domain">auth.my.tysonmediagroup.org</span>, and <span class="brand-tmg-domain">docs.tysonmediagroup.org</span> executes inside Cloudflare's V8 isolate runtime. Using the WebCrypto API at the edge, we hash passwords with salted <code>SHA-256</code> and sign sessions with <code>HMAC-SHA256</code> in under a millisecond.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3 class="card-title" style="margin-bottom: 8px;">3. Atomic Git-to-Edge CI/CD</h3>
+          <p style="color: var(--text-body); font-size: 0.98rem;">
+            Every push to <code>main</code> across our GitHub repositories automatically builds and deploys globally to Cloudflare's Anycast network with instant SSL/TLS, HTTP/3 (QUIC), and atomic rollbacks across all 45+ <span class="brand-tmg-domain">tysonmediagroup.org</span> and <span class="brand-tmg-domain">myt5s.app</span> endpoints.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         VIEW 4: TYSON TEAM BLOG & DISPATCHES (#blog)
+         ===================================================================== -->
+    <section class="docs-view" id="view-blog">
+      <!-- Header Banner for Blog -->
+      <div class="card" style="margin-bottom: 22px;">
+        <div class="card-header" style="margin-bottom: 8px; border-bottom: none; padding-bottom: 0;">
+          <div>
+            <span class="editorial-tag" style="font-size: 0.8rem;">Official Engineering &amp; Creative Dispatches</span>
+            <h2 class="card-title">TYSON Team Blog</h2>
+            <p class="card-subtitle">Published directly by verified <span class="brand-tmg-domain">@tysonmediagroup.org</span> staff members and persisted globally on Cloudflare D1</p>
+          </div>
+          <div id="blogStaffStatusPill"></div>
+        </div>
+      </div>
+
+      <!-- Staff-Only Composer (Visible ONLY when signed into a verified team === 'Y' account) -->
+      <div class="card" id="blogStaffComposerCard" style="display: none; border-color: rgba(255, 255, 255, 0.5); margin-bottom: 26px;">
+        <div class="card-header">
+          <div>
+            <h3 class="card-title">Publish New TYSON Team Dispatch</h3>
+            <p class="card-subtitle">Posting as <span class="brand-tmg-domain" id="composerAuthorLabel">flame@tysonmediagroup.org</span> &bull; Verified TYSON Staff</p>
+          </div>
+          <span class="tyson-white-badge" title="Verified TYSON Staff">
+            <img src="/assets/tyson-white-badge.png" alt="TYSON">
+          </span>
+        </div>
+
+        <form id="blogPublishForm" autocomplete="off">
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label" for="blogTitleInput">Dispatch Title</label>
+              <input type="text" id="blogTitleInput" class="form-input" placeholder="e.g., Expanding the PROJECT T6 Telemetry Pipeline" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="blogCategoryInput">Division / Category</label>
+              <select id="blogCategoryInput" class="form-input">
+                <option value="Cloudflare &amp; Edge Infrastructure">Cloudflare &amp; Edge Infrastructure</option>
+                <option value="Engineering &amp; Architecture">Engineering &amp; Architecture</option>
+                <option value="Design Systems &amp; UI">Design Systems &amp; UI</option>
+                <option value="Broadcast &amp; Automotive Film">Broadcast &amp; Automotive Film</option>
+                <option value="TYSON Atlantis &amp; T5S">TYSON Atlantis &amp; T5S</option>
+                <option value="Company Announcement">Company Announcement</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="blogSummaryInput">Executive Summary (1-2 sentences)</label>
+            <input type="text" id="blogSummaryInput" class="form-input" placeholder="Short summary displayed at the top of the dispatch...">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="blogContentInput">Full Dispatch Body</label>
+            <textarea id="blogContentInput" class="form-textarea" style="min-height: 160px;" placeholder="Write your full TYSON Team dispatch here..." required></textarea>
+          </div>
+
+          <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+            <span id="blogPublishFeedback" style="font-size: 0.9rem; color: #34d399;"></span>
+            <button type="submit" class="btn btn-primary" id="blogPublishSubmitBtn">Publish Dispatch to Cloudflare D1 &rarr;</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Blog Posts Feed -->
+      <div id="blogFeedContainer" style="display: flex; flex-direction: column; gap: 22px;"></div>
+    </section>
+
+  </main>
+
+  <footer style="text-align: center; padding: 3rem 1.5rem; border-top: 1px solid var(--border-subtle);">
+    <img src="/assets/TYSONMediaGroupBanner.png" alt="TYSON Media Group" class="footer-logo">
+    <div class="brand-tmg-domain" style="font-size: 1.5rem; color: var(--text-white);">docs.tysonmediagroup.org</div>
+    <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 6px;">Ad Astra Per Aspera &bull; Stillness in Motion &bull; Powered by Cloudflare Pages, Workers &amp; D1</div>
+  </footer>
+
+  <!-- Slide-out Multi-Theme Settings Drawer -->
+  <div class="settings-drawer-backdrop" id="settings-drawer-backdrop"></div>
+  <aside class="settings-drawer" id="settings-drawer" aria-label="Appearance Settings">
+    <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border-subtle); padding-bottom: 14px;">
+      <h3 style="font-family: var(--font-heading); font-size: 1.75rem; font-weight: 500; color: var(--text-white);">Appearance &amp; Theme</h3>
+      <button type="button" class="btn" id="settings-close-btn" style="padding: 6px 14px;">Close</button>
+    </div>
+    <p style="font-size: 0.88rem; color: var(--text-muted);">Select a TYSON Media Group visual theme across myTYSON:</p>
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+      <button type="button" class="theme-option-btn active" data-set-theme="noir-aero">
+        <span>Black Frutiger Aero</span>
+        <span style="font-size: 0.78rem; color: var(--text-muted);">Obsidian Gloss</span>
+      </button>
+      <button type="button" class="theme-option-btn" data-set-theme="noir">
+        <span>Noir Midnight</span>
+        <span style="font-size: 0.78rem; color: var(--text-muted);">Architectural Flat</span>
+      </button>
+      <button type="button" class="theme-option-btn" data-set-theme="frutiger">
+        <span>Frutiger Aero Aqua</span>
+        <span style="font-size: 0.78rem; color: var(--text-muted);">Machined Glass</span>
+      </button>
+      <button type="button" class="theme-option-btn" data-set-theme="wii">
+        <span>Nintendo Wii</span>
+        <span style="font-size: 0.78rem; color: var(--text-muted);">System Channels</span>
+      </button>
+      <button type="button" class="theme-option-btn" data-set-theme="nature">
+        <span>Nature Botanical</span>
+        <span style="font-size: 0.78rem; color: var(--text-muted);">Deep Moss</span>
+      </button>
+    </div>
+  </aside>
+
+  <script src="/mytyson-core.js"></script>
+  <script>
+    (function () {
+      var core = window.MyTysonCore;
+
+      // =======================================================================
+      // 1. ALL-TIME RELEASE NOTES ARCHIVE (July 2026 — November 2026)
+      // =======================================================================
+      var ALL_TIME_RELEASES = [
+        {
+          version: "v4.8.0",
+          date: "2026-11-02",
+          commit: "a7a9072",
+          platform: "mytyson",
+          domain: "docs.tysonmediagroup.org",
+          title: "Launch of docs.tysonmediagroup.org, Cloudflare D1 Blog Engine & Full Ecosystem Ledger",
+          items: [
+            "Launched docs.tysonmediagroup.org featuring the complete all-time release ledger, interactive framework documentation, official Cloudflare infrastructure endorsement, and the TYSON Team Blog.",
+            "Added mytyson_blog_posts table to Cloudflare D1 (mytyson-db) and /api/blog edge endpoints restricting blog publishing to verified TYSON Team (@tysonmediagroup.org) staff.",
+            "Registered docs.tysonmediagroup.org in auth.my.tysonmediagroup.org APP_BRANDING for seamless one-click Single Sign-On."
+          ]
+        },
+        {
+          version: "v4.7.0",
+          date: "2026-11-02",
+          commit: "c37c8ae",
+          platform: "mytyson",
+          domain: "my.tysonmediagroup.org • tysonmediagroup.org",
+          title: "Mobile Bottom Command Bar, Banner-Only Mobile Header & MyTYSONBanner Rollout",
+          items: [
+            "Engineered the mobile-only bottom Command Bar (#tysonMobileCommandBar) on viewports <= 768px with Sign In / Sign Out, Public Profile, and Gear Settings buttons.",
+            "Simplified mobile top navigation headers across the framework to display each property's centered official Banner Logo (MyTYSONBanner.png, TYSONMediaGroupBanner.png, TYSONPowerAdminBanner.png).",
+            "Fixed flex-basis button height scaling in .identity-strip so Save Changes and Open Public Profile buttons render at crisp, compact dimensions across all screen sizes."
+          ]
+        },
+        {
+          version: "v4.6.0",
+          date: "2026-11-02",
+          commit: "04f616b",
+          platform: "tmg",
+          domain: "tysonmediagroup.org.myt5s.app • auth.my.tysonmediagroup.org",
+          title: "Custom Property Web Icons, Mobile Viewport Overhaul & tysonmediagroup.org.myt5s.app SSO Integration",
+          items: [
+            "Deployed official custom web icons across all properties: TYSONAuthenticationIcon.jpg on auth.my.tysonmediagroup.org, myTYSONIcon.png on myTYSON & PowerAdmin, and tysonmediagroup-icon.png on tysonmediagroup.org.",
+            "Connected tysonmediagroup.org.myt5s.app to myTYSON SSO and synced all public profile routes (/flame, /t, /tyson, /a, /rpm, /contact, /j.gantt, /eythn, /jmay) + dynamic 404.html handler.",
+            "Resolved mobile horizontal overflow caused by rigid pixel max-widths on banner logos."
+          ]
+        },
+        {
+          version: "v4.5.0",
+          date: "2026-11-02",
+          commit: "0555c6f",
+          platform: "mytyson",
+          domain: "my.tysonmediagroup.org • auth.my.tysonmediagroup.org",
+          title: "Cloudflare D1 Global Database Provisioning, Centralized Google OAuth 2.0 & WebCrypto Security",
+          items: [
+            "Provisioned remote Cloudflare D1 SQLite database (mytyson-db) in WNAM and seeded all 9 default accounts with salted WebCrypto SHA-256 password hashes.",
+            "Integrated Google Identity Services on auth.my.tysonmediagroup.org with edge JWT verification (/api/auth/google) and the new-user Handle Picker onboarding step (#googleHandlePickerForm).",
+            "Enforced strict Staff vs. Community handle formatting: only verified TYSON Staff (team === 'Y') receive @tysonmediagroup.org handles; standard users receive clean @username slugs."
+          ]
+        },
+        {
+          version: "v4.2.0",
+          date: "2026-10-29",
+          commit: "0518da4",
+          platform: "poweradmin",
+          domain: "power.administration.tysonmediagroup.org",
+          title: "Crimson Obsidian Aero Theme & TYSONPowerAdminBanner Integration",
+          items: [
+            "Applied bespoke Crimson Obsidian Aero specular theme to power.administration.tysonmediagroup.org.",
+            "Updated brand header, lock gate, and ecosystem tiles to use the official TYSONPowerAdminBanner.png asset."
+          ]
+        },
+        {
+          version: "v4.1.0",
+          date: "2026-10-28",
+          commit: "27507f6",
+          platform: "poweradmin",
+          domain: "power.administration.tysonmediagroup.org • my.tysonmediagroup.org",
+          title: "Launch of PowerAdmin Executive Moderation, Dynamic User Creation & Real-Name Privacy Toggle",
+          items: [
+            "Launched power.administration.tysonmediagroup.org (with p.a.tysonmediagroup.org short redirect) for Clearance Level 1 administrators (Tyler, Stephen, Ash, and TMG org account).",
+            "Added self-service Create Account registration on auth.my.tysonmediagroup.org enforcing the minimum 3-character username policy for non-staff.",
+            "Added Show Real Name on Public Profile toggle allowing members to display only their @handle publicly when toggled off.",
+            "Added initial community accounts for Eythn Cullia (@eythn) and J May (@jmay) alongside dynamic 404.html profile rendering."
+          ]
+        },
+        {
+          version: "v4.0.0",
+          date: "2026-10-26",
+          commit: "d66ab4c",
+          platform: "mytyson",
+          domain: "my.tysonmediagroup.org • auth.my.tysonmediagroup.org",
+          title: "Initial Launch of my.tysonmediagroup.org Dashboard, auth.my.tysonmediagroup.org SSO & Cloudflare Worker API",
+          items: [
+            "Launched the unified myTYSON Identity Dashboard (my.tysonmediagroup.org) with live Facebook-style Obsidian Gloss cover/avatar preview, client-side canvas image optimization, and 8-chunk cross-subdomain cookie sync.",
+            "Launched centralized Single Sign-On portal (auth.my.tysonmediagroup.org) with dynamic app-aware branding.",
+            "Replaced _redirects with dynamic 404.html fallback to eliminate Cloudflare Pages 100324 infinite loop errors."
+          ]
+        },
+        {
+          version: "v3.9.0",
+          date: "2026-10-26",
+          commit: "e7cdf01",
+          platform: "atlantis",
+          domain: "flame.atlantis.tysonmediagroup.org",
+          title: "Launch of flame.atlantis.tysonmediagroup.org with myTYSON SSO & Geometry Dash Catalog",
+          items: [
+            "Launched flame.atlantis.tysonmediagroup.org integrated with myTYSON Single Sign-On, responsive lock screen scaling, and interactive catalog."
+          ]
+        },
+        {
+          version: "v3.8.0",
+          date: "2026-10-26",
+          commit: "e570883",
+          platform: "tmg",
+          domain: "tysonmediagroup.org.myt5s.app",
+          title: "Updated TYSONMediaGroupBanner.png Chrome & Specular Branding Across Main Portal",
+          items: [
+            "Updated primary brand banner across tysonmediagroup.org.myt5s.app and public profile routes to the new tightly cropped TYSONMediaGroupBanner.png."
+          ]
+        },
+        {
+          version: "v3.7.0",
+          date: "2026-10-20",
+          commit: "afdf385",
+          platform: "t6",
+          domain: "t6graph.tysonmediagroup.org",
+          title: "PROJECT T6 SONAR Frequency Oscilloscope & 5-Year Real Telemetry Engine",
+          items: [
+            "Launched t6graph.tysonmediagroup.org featuring a pure monochrome noir time-series SONAR graph wired to 262 real 5-Year (5Y) data points.",
+            "Upgraded to the full tysonmediagroup.org framework with SVG vector trace intro, multi-theme Settings modal, and .assetsignore optimization for Cloudflare Workers."
+          ]
+        },
+        {
+          version: "v3.6.0",
+          date: "2026-10-16",
+          commit: "d4e5d07",
+          platform: "tmg",
+          domain: "tysonmediagroup.org • rpm.tysonmediagroup.org • atlantis",
+          title: "Black Frutiger Aero (noir-aero) Default Theme & PROJECT T6 Ecosystem Centerpiece",
+          items: [
+            "Integrated Black Frutiger Aero (noir-aero) 50/50 specular obsidian glass as the default visual theme across tysonmediagroup.org, rpm.tysonmediagroup.org, Atlantis Player, tr.tysonmediagroup.org, and t6graph.",
+            "Added official PROJECT T6 logo to the intro trace sequence and global footer centerpiece.",
+            "Added t6graph.tysonmediagroup.org to the Corporate Network Directory."
+          ]
+        },
+        {
+          version: "v3.4.0",
+          date: "2026-10-06",
+          commit: "4528bcc",
+          platform: "legacy",
+          domain: "100.tysonmediagroup.org",
+          title: "100 Subscribers Milestone Celebration Portal & Sequential Vector Trace Finale",
+          items: [
+            "Launched 100.tysonmediagroup.org commemorating 100 YouTube subscribers with Borg 9 & Cormorant Garamond sequential pen tracing, stage-click replay, and Brothertiger - Tide Pool (3:30-4:30) synchronized audio."
+          ]
+        },
+        {
+          version: "v3.3.0",
+          date: "2026-10-02",
+          commit: "15b2ea8",
+          platform: "tmg",
+          domain: "tysonmediagroup.org.myt5s.app",
+          title: "Core Web Vitals, Accessibility & Mobile Interaction Polish Suite (16-Commit Sprint)",
+          items: [
+            "Eliminated 300ms mobile tap delay with touch-action: manipulation, prevented iOS auto-zoom on search inputs, and fixed video grid columns on tablets and phones.",
+            "Added DNS prefetch for YouTube CDN, lazy loading for below-fold thumbnails, automatic hqdefault thumbnail fallback, Open Graph / Twitter Card metadata, and ARIA roles on modals."
+          ]
+        },
+        {
+          version: "v3.2.0",
+          date: "2026-09-28",
+          commit: "9d29677",
+          platform: "t6",
+          domain: "rpm.tysonmediagroup.org",
+          title: "Launch of RPM World Portal (@tysonrpm)",
+          items: [
+            "Launched rpm.tysonmediagroup.org dedicated to RPM World broadcasts and synchronized with YouTube channel @tysonrpm (UCy5fCFuoaipvqa3hPFHaZkg)."
+          ]
+        },
+        {
+          version: "v3.1.0",
+          date: "2026-09-21",
+          commit: "9405a70",
+          platform: "legacy",
+          domain: "3d.tysonmediagroup.org • ash.games.t5s.tysonmediagroup.org",
+          title: "Launch of TYSON 3D Engine & Ash T5S Canvas Game Server (TYSON_Server1)",
+          items: [
+            "Deployed 3d.tysonmediagroup.org and ash-games-t5s-tysonmediagroup-org on Cloudflare Pages with custom Wrangler asset pipelines."
+          ]
+        },
+        {
+          version: "v3.0.0",
+          date: "2026-09-14",
+          commit: "c7b2855",
+          platform: "atlantis",
+          domain: "atlantis.player.tysonmediagroup.org.myt5s.app",
+          title: "Launch of Standalone TYSON Atlantis Pro Web Workstation Player",
+          items: [
+            "Built standalone TYSON Atlantis Player App featuring a pro workstation layout (sidebar + dual deck rack + audio catalog), pure SVG iconography, and 24MB Cloudflare Pages audio asset optimization."
+          ]
+        },
+        {
+          version: "v2.5.0",
+          date: "2026-09-09",
+          commit: "dca06f8",
+          platform: "legacy",
+          domain: "tr.tysonmediagroup.org • 323.tysonracing.tysonmediagroup.org.myt5s.app",
+          title: "Launch of TYSON Racing Portal & 44-Node Corporate Network Directory",
+          items: [
+            "Launched tr.tysonmediagroup.org and 323.tysonracing.tysonmediagroup.org.myt5s.app with 1-to-1 hero SVG domain trace and video redirect.",
+            "Expanded the Corporate Network Directory in the global footer to 44 official endpoints."
+          ]
+        },
+        {
+          version: "v2.0.0",
+          date: "2026-08-27",
+          commit: "534f0a5",
+          platform: "tmg",
+          domain: "tysonmediagroup.org.myt5s.app",
+          title: "Initial Release of tysonmediagroup.org.myt5s.app Broadcast & Evaluation Platform",
+          items: [
+            "Launched the full tysonmediagroup.org.myt5s.app Single-Page Application featuring the Cormorant Garamond SVG vector trace hero, 79-video YouTube broadcast library, interactive search/category filtering, and dark-mode HTML beta invitation templates."
+          ]
+        },
+        {
+          version: "v1.5.0",
+          date: "2026-08-13",
+          commit: "5515b2e",
+          platform: "legacy",
+          domain: "tyson-auto • tyson-web-app",
+          title: "Early Automotive Editorial Frontend & Monochrome Noir Prototyping",
+          items: [
+            "Built early tyson-auto editorial frontend with searchable automotive evaluations, pure black monochrome theme, and header/footer TYSON Media Group banner integration."
+          ]
+        },
+        {
+          version: "v1.0.0",
+          date: "2026-07-09",
+          commit: "20e2e61",
+          platform: "legacy",
+          domain: "tysonmediagroup.org • tyson-cli",
+          title: "Genesis: tysonmediagroup.org Coming Soon Vector Trace & TYSON CLI",
+          items: [
+            "First production commits for tysonmediagroup.org (SVG glow/zoom intro animation and splash video) and initial July 2026 release of tyson-cli."
+          ]
+        }
+      ];
+
+      var activePlatformFilter = "all";
+      var releaseSearchQuery = "";
+
+      function renderReleases() {
+        var container = document.getElementById("releaseTimelineContainer");
+        var badge = document.getElementById("releaseCountBadge");
+        if (!container) return;
+
+        var q = (releaseSearchQuery || "").toLowerCase().trim();
+        var filtered = ALL_TIME_RELEASES.filter(function (r) {
+          if (activePlatformFilter !== "all" && r.platform !== activePlatformFilter) {
+            return false;
+          }
+          if (!q) return true;
+          var hay = (r.version + " " + r.date + " " + r.commit + " " + r.domain + " " + r.title + " " + r.items.join(" ")).toLowerCase();
+          return hay.indexOf(q) !== -1;
+        });
+
+        if (badge) {
+          badge.textContent = filtered.length + (filtered.length === 1 ? " Milestone" : " Milestones");
+        }
+
+        if (filtered.length === 0) {
+          container.innerHTML = '<div class="card"><p style="color: var(--text-muted);">No release notes matched your filter.</p></div>';
+          return;
+        }
+
+        container.innerHTML = filtered.map(function (r) {
+          var bullets = r.items.map(function (item) {
+            return "<li>" + item + "</li>";
+          }).join("");
+          return (
+            '<article class="card release-card">' +
+              '<div class="release-meta-row">' +
+                '<div class="release-badges">' +
+                  '<span class="release-version-pill">' + r.version + '</span>' +
+                  '<span class="release-commit-hash">#' + r.commit + '</span>' +
+                  '<span class="brand-tmg-domain" style="font-size: 1.08rem; color: var(--text-white);">' + r.domain + '</span>' +
+                '</div>' +
+                '<span class="release-date">' + r.date + '</span>' +
+              '</div>' +
+              '<h3 class="release-title">' + r.title + '</h3>' +
+              '<ul class="release-list">' + bullets + '</ul>' +
+            '</article>'
+          );
+        }).join("");
+      }
+
+      var searchInput = document.getElementById("releaseSearchInput");
+      if (searchInput) {
+        searchInput.addEventListener("input", function () {
+          releaseSearchQuery = searchInput.value;
+          renderReleases();
+        });
+      }
+
+      var filterBtns = document.querySelectorAll("#releaseFilterChips .filter-chip");
+      for (var i = 0; i < filterBtns.length; i++) {
+        filterBtns[i].addEventListener("click", function () {
+          for (var j = 0; j < filterBtns.length; j++) filterBtns[j].classList.remove("active");
+          this.classList.add("active");
+          activePlatformFilter = this.getAttribute("data-platform") || "all";
+          renderReleases();
+        });
+      }
+
+      // =======================================================================
+      // 2. TAB SWITCHING (Release Notes / Guides / Cloudflare / Team Blog)
+      // =======================================================================
+      function switchDocsView(viewName) {
+        var views = ["releases", "guides", "cloudflare", "blog"];
+        if (views.indexOf(viewName) === -1) viewName = "releases";
+
+        for (var k = 0; k < views.length; k++) {
+          var el = document.getElementById("view-" + views[k]);
+          if (el) {
+            if (views[k] === viewName) el.classList.add("active");
+            else el.classList.remove("active");
+          }
+        }
+
+        var tabBtns = document.querySelectorAll("[data-docs-tab]");
+        for (var t = 0; t < tabBtns.length; t++) {
+          if (tabBtns[t].getAttribute("data-docs-tab") === viewName) tabBtns[t].classList.add("active");
+          else tabBtns[t].classList.remove("active");
+        }
+
+        var navLinks = document.querySelectorAll("[data-docs-nav]");
+        for (var n = 0; n < navLinks.length; n++) {
+          if (navLinks[n].getAttribute("data-docs-nav") === viewName) navLinks[n].classList.add("active");
+          else navLinks[n].classList.remove("active");
+        }
+      }
+
+      document.querySelectorAll("[data-docs-tab]").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          var target = btn.getAttribute("data-docs-tab");
+          history.replaceState(null, "", "#" + target);
+          switchDocsView(target);
+        });
+      });
+
+      document.querySelectorAll("[data-docs-nav]").forEach(function (link) {
+        link.addEventListener("click", function (e) {
+          e.preventDefault();
+          var target = link.getAttribute("data-docs-nav");
+          history.replaceState(null, "", "#" + target);
+          switchDocsView(target);
+        });
+      });
+
+      function checkHashView() {
+        var h = (window.location.hash || "").replace(/^#/, "").toLowerCase();
+        if (h === "guides" || h === "cloudflare" || h === "blog" || h === "releases") {
+          switchDocsView(h);
+        }
+      }
+      window.addEventListener("hashchange", checkHashView);
+
+      // =======================================================================
+      // 3. SSO SESSION & TYSON TEAM BLOG ENGINE (Cloudflare D1 /api/blog)
+      // =======================================================================
+      var FALLBACK_BLOG_POSTS = [
+        {
+          id: "dispatch-2026-11-02-d1-sso",
+          title: "Architecting Global Zero-Trust Identity on Cloudflare D1 & Edge Workers",
+          category: "Cloudflare & Edge Infrastructure",
+          summary: "How we unified myTYSON Single Sign-On, Google OAuth 2.0, and cross-domain profile state across tysonmediagroup.org using Cloudflare D1 SQLite at the edge.",
+          content: "With the November 2026 infrastructure milestone, every TYSON Media Group property — from tysonmediagroup.org and my.tysonmediagroup.org to auth.my.tysonmediagroup.org, power.administration.tysonmediagroup.org, and flame.atlantis.tysonmediagroup.org — now runs on a unified Cloudflare D1 edge database paired with WebCrypto HMAC-SHA256 session tokens.\n\nWhy Cloudflare D1? Traditional centralized databases introduce cold-start latency and regional bottlenecks. By pairing Cloudflare Pages Functions and Workers with D1 (backed by automatic Edge Cache fallback), profile updates, custom avatars, and account registrations propagate globally in milliseconds with zero origin servers to maintain.\n\nWe also introduced strict Staff vs. Community handle separation: only verified TYSON Team accounts receive @tysonmediagroup.org corporate handles, while community members receive clean @username slugs with instant Google OAuth 2.0 onboarding.",
+          authorSlug: "t",
+          authorName: "Tyler Custine",
+          authorHandle: "t@tysonmediagroup.org",
+          authorRole: "Founder & Executive Director",
+          createdAt: 1793646000000
+        },
+        {
+          id: "dispatch-2026-11-02-mobile-command-bar",
+          title: "Designing the Mobile Command Bar & Black Frutiger Aero Design System",
+          category: "Design Systems & UI",
+          summary: "Introducing the mobile-only bottom Command Bar, banner-only top headers, and the 5-theme Specular Glass Engine across the tysonmediagroup.org framework.",
+          content: "Mobile navigation on content-heavy media and identity platforms often suffers from cramped top headers. Today we rolled out a dedicated mobile interface across the tysonmediagroup.org framework.\n\nOn viewports 768px and below, the top navigation bar distills down to the property's official Banner Logo (MyTYSONBanner, TYSONMediaGroupBanner, or TYSONPowerAdminBanner), while interactive controls move to the bottom Mobile Command Bar: one-tap Sign In / Sign Out, Public Profile navigation, and the Theme & Appearance Gear button.\n\nEvery surface adheres to our Black Frutiger Aero (noir-aero) 50/50 specular glass split, with instant live switching across Noir Midnight, Frutiger Aero Aqua, Nintendo Wii System Channels, and Nature Botanical themes.",
+          authorSlug: "flame",
+          authorName: "Stephen French",
+          authorHandle: "flame@tysonmediagroup.org",
+          authorRole: "Director • TYSON Atlantis & T5S",
+          createdAt: 1793642400000
+        },
+        {
+          id: "dispatch-2026-10-16-project-t6",
+          title: "PROJECT T6 & The Evolution of Stillness in Motion",
+          category: "Broadcast & Automotive Film",
+          summary: "Behind the Cormorant Garamond SVG vector trace engine, t6graph SONAR telemetry, and 79+ official automotive film releases.",
+          content: "Stillness in Motion is more than a tagline — it is the engineering standard behind every frame we shoot and every web application we ship. With the rollout of PROJECT T6 across tysonmediagroup.org, rpm.tysonmediagroup.org, and t6graph.tysonmediagroup.org, we unified our stroke-by-stroke Cormorant Garamond italic vector trace intro with real-time telemetry and zero-dependency performance.",
+          authorSlug: "a",
+          authorName: "Ash French",
+          authorHandle: "a@tysonmediagroup.org",
+          authorRole: "TYSON Team • 3D & Interactive Systems",
+          createdAt: 1792177200000
+        }
+      ];
+
+      var LOCAL_BLOG_KEY = "mytyson_docs_blog_v1";
+      var activeStaffAccount = null;
+
+      function getSsoUrl() {
+        var h = window.location.hostname;
+        var base = (h === "localhost" || h === "127.0.0.1") ? "http://localhost:8097/auth.html" : "https://auth.my.tysonmediagroup.org";
+        return base + "?app=docs&redirect=" + encodeURIComponent(window.location.href.split("?")[0]);
+      }
+
+      function getApiEndpoints() {
+        var h = window.location.hostname;
+        if (h === "localhost" || h === "127.0.0.1") {
+          return ["/api/blog", "http://localhost:8097/api/blog"];
+        }
+        return ["/api/blog", "https://my.tysonmediagroup.org/api/blog"];
+      }
+
+      function escapeHtml(str) {
+        return String(str || "")
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;");
+      }
+
+      function formatBlogDate(ts) {
+        try {
+          var d = new Date(Number(ts) || Date.now());
+          return d.toISOString().split("T")[0];
+        } catch (e) {
+          return "2026-11-02";
+        }
+      }
+
+      function getMergedBlogPosts(remoteList) {
+        var map = {};
+        FALLBACK_BLOG_POSTS.forEach(function (p) { map[p.id] = p; });
+        try {
+          var localRaw = localStorage.getItem(LOCAL_BLOG_KEY);
+          if (localRaw) {
+            var localArr = JSON.parse(localRaw);
+            if (Array.isArray(localArr)) {
+              localArr.forEach(function (p) { if (p && p.id) map[p.id] = p; });
+            }
+          }
+        } catch (e) {}
+        if (Array.isArray(remoteList)) {
+          remoteList.forEach(function (p) { if (p && p.id) map[p.id] = p; });
+        }
+        return Object.keys(map).map(function (k) { return map[k]; }).sort(function (a, b) {
+          return (b.createdAt || 0) - (a.createdAt || 0);
+        });
+      }
+
+      function renderBlogFeed(posts) {
+        var feed = document.getElementById("blogFeedContainer");
+        if (!feed) return;
+        var list = getMergedBlogPosts(posts);
+
+        feed.innerHTML = list.map(function (p) {
+          var canDelete = activeStaffAccount && (core.isPowerAdmin(activeStaffAccount) || activeStaffAccount.slug === p.authorSlug);
+          return (
+            '<article class="card">' +
+              '<div class="release-meta-row">' +
+                '<div class="release-badges">' +
+                  '<span class="status-badge badge-team">' + escapeHtml(p.category || "Engineering & Architecture") + '</span>' +
+                  '<span class="brand-tmg-domain" style="font-size: 1.05rem; color: var(--text-white);">' + escapeHtml(p.authorHandle || (p.authorSlug + "@tysonmediagroup.org")) + '</span>' +
+                '</div>' +
+                '<span class="release-date">' + formatBlogDate(p.createdAt) + '</span>' +
+              '</div>' +
+              '<h3 class="card-title" style="font-size: 1.85rem; margin-bottom: 8px;">' + escapeHtml(p.title) + '</h3>' +
+              (p.summary ? '<p style="font-size: 1.05rem; color: var(--text-white); opacity: 0.92; font-style: italic; margin-bottom: 10px;">' + escapeHtml(p.summary) + '</p>' : '') +
+              '<div class="blog-article-body">' + escapeHtml(p.content) + '</div>' +
+              '<div class="blog-author-strip">' +
+                '<div style="display: flex; align-items: center; gap: 10px;">' +
+                  '<span class="tyson-white-badge" style="height: 28px; padding: 4px 10px;" title="Verified TYSON Staff">' +
+                    '<img src="/assets/tyson-white-badge.png" alt="TYSON" style="height: 15px !important;">' +
+                  '</span>' +
+                  '<div>' +
+                    '<div style="font-weight: 600; color: var(--text-white); font-size: 0.95rem;">' + escapeHtml(p.authorName) + '</div>' +
+                    '<div style="font-size: 0.8rem; color: var(--text-muted);">' + escapeHtml(p.authorRole || "TYSON Team") + ' &bull; <a href="https://tysonmediagroup.org/' + encodeURIComponent(p.authorSlug || "t") + '" class="brand-tmg-domain" style="color: var(--text-white);">tysonmediagroup.org/' + escapeHtml(p.authorSlug || "t") + '</a></div>' +
+                  '</div>' +
+                '</div>' +
+                (canDelete ? '<button type="button" class="btn" data-delete-post="' + escapeHtml(p.id) + '" style="padding: 6px 14px; font-size: 0.85rem; border-color: rgba(239,68,68,0.5); color: #fca5a5;">Delete Dispatch</button>' : '') +
+              '</div>' +
+            '</article>'
+          );
+        }).join("");
+
+        feed.querySelectorAll("[data-delete-post]").forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            var id = btn.getAttribute("data-delete-post");
+            if (!id) return;
+            try {
+              var localRaw = localStorage.getItem(LOCAL_BLOG_KEY);
+              if (localRaw) {
+                var arr = JSON.parse(localRaw).filter(function (x) { return x && x.id !== id; });
+                localStorage.setItem(LOCAL_BLOG_KEY, JSON.stringify(arr));
+              }
+            } catch (e) {}
+            var endpoints = getApiEndpoints();
+            fetch(endpoints[0] + "?id=" + encodeURIComponent(id), { method: "DELETE" })
+              .catch(function () {
+                return fetch(endpoints[1] + "?id=" + encodeURIComponent(id), { method: "DELETE" });
+              })
+              .finally(function () {
+                loadCloudBlogPosts();
+              });
+          });
+        });
+      }
+
+      function loadCloudBlogPosts() {
+        var endpoints = getApiEndpoints();
+        fetch(endpoints[0] + "?_t=" + Date.now())
+          .then(function (r) {
+            if (!r.ok) throw new Error("Fallback");
+            return r.json();
+          })
+          .catch(function () {
+            return fetch(endpoints[1] + "?_t=" + Date.now()).then(function (r) { return r.json(); });
+          })
+          .then(function (list) {
+            renderBlogFeed(list);
+          })
+          .catch(function () {
+            renderBlogFeed([]);
+          });
+      }
+
+      function initAuthAndBlogComposer() {
+        var topAuthBtn = document.getElementById("topAuthBtn");
+        var topProfBtn = document.getElementById("topPublicProfileBtn");
+        var composerCard = document.getElementById("blogStaffComposerCard");
+        var statusPill = document.getElementById("blogStaffStatusPill");
+        var authorLabel = document.getElementById("composerAuthorLabel");
+
+        var session = core.getSession();
+        if (session && session.slug) {
+          var acc = core.findAccount(session.slug) || session;
+          var isStaff = core.isStaffMember ? core.isStaffMember(acc) : (acc.team === "Y");
+
+          if (topAuthBtn) {
+            topAuthBtn.textContent = "Sign Out (" + acc.slug + ")";
+            topAuthBtn.href = "#";
+            topAuthBtn.onclick = function (e) {
+              e.preventDefault();
+              core.clearSession();
+              window.location.reload();
+            };
+          }
+          if (topProfBtn) {
+            topProfBtn.href = "https://tysonmediagroup.org/" + encodeURIComponent(acc.slug);
+          }
+
+          if (isStaff) {
+            activeStaffAccount = acc;
+            if (composerCard) composerCard.style.display = "block";
+            if (authorLabel) authorLabel.textContent = acc.slug + "@tysonmediagroup.org";
+            if (statusPill) {
+              statusPill.innerHTML = '<span class="status-badge badge-team">Staff Composer Unlocked (' + escapeHtml(acc.slug) + '@tysonmediagroup.org)</span>';
+            }
+          } else {
+            if (statusPill) {
+              statusPill.innerHTML = '<span class="status-badge badge-member">Signed in as @' + escapeHtml(acc.slug) + ' (Read-Only)</span>';
+            }
+          }
+        } else {
+          if (topAuthBtn) {
+            topAuthBtn.textContent = "Sign In";
+            topAuthBtn.href = getSsoUrl();
+            topAuthBtn.onclick = null;
+          }
+          if (statusPill) {
+            statusPill.innerHTML = '<a href="' + getSsoUrl() + '" class="btn" style="padding: 6px 14px; font-size: 0.88rem;">TYSON Staff Sign In to Publish &rarr;</a>';
+          }
+        }
+
+        renderBlogFeed([]);
+        loadCloudBlogPosts();
+      }
+
+      var blogForm = document.getElementById("blogPublishForm");
+      if (blogForm) {
+        blogForm.addEventListener("submit", function (e) {
+          e.preventDefault();
+          if (!activeStaffAccount) return;
+
+          var titleEl = document.getElementById("blogTitleInput");
+          var catEl = document.getElementById("blogCategoryInput");
+          var sumEl = document.getElementById("blogSummaryInput");
+          var bodyEl = document.getElementById("blogContentInput");
+          var feedbackEl = document.getElementById("blogPublishFeedback");
+
+          var newPost = {
+            id: "dispatch-" + Date.now(),
+            title: titleEl.value.trim(),
+            category: catEl.value,
+            summary: sumEl.value.trim(),
+            content: bodyEl.value.trim(),
+            authorSlug: activeStaffAccount.slug,
+            authorName: activeStaffAccount.name || activeStaffAccount.slug,
+            authorHandle: activeStaffAccount.slug + "@tysonmediagroup.org",
+            authorRole: activeStaffAccount.role || "TYSON Team",
+            createdAt: Date.now()
+          };
+
+          if (feedbackEl) feedbackEl.textContent = "Publishing to Cloudflare D1...";
+
+          try {
+            var existing = [];
+            var raw = localStorage.getItem(LOCAL_BLOG_KEY);
+            if (raw) existing = JSON.parse(raw);
+            existing.unshift(newPost);
+            localStorage.setItem(LOCAL_BLOG_KEY, JSON.stringify(existing));
+          } catch (err) {}
+
+          var endpoints = getApiEndpoints();
+          fetch(endpoints[0], {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(newPost)
+          })
+            .then(function (r) {
+              if (!r.ok) throw new Error("Fallback");
+              return r.json();
+            })
+            .catch(function () {
+              return fetch(endpoints[1], {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(newPost)
+              }).then(function (r) { return r.json(); });
+            })
+            .finally(function () {
+              titleEl.value = "";
+              sumEl.value = "";
+              bodyEl.value = "";
+              if (feedbackEl) {
+                feedbackEl.textContent = "Dispatch published to docs.tysonmediagroup.org!";
+                setTimeout(function () { feedbackEl.textContent = ""; }, 4000);
+              }
+              loadCloudBlogPosts();
+            });
+        });
+      }
+
+      renderReleases();
+      checkHashView();
+      if (core.syncAccountsFromCloud) {
+        core.syncAccountsFromCloud(initAuthAndBlogComposer);
+      } else {
+        initAuthAndBlogComposer();
+      }
+    })();
+  </script>
+</body>
+</html>
